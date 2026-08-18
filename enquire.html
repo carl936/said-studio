@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!-- SAID STUDIO — ENQUIRE (2026, per EVENTS DONE DIFFERENTLY.pdf p.6). Form fields
+     mirror the live saidstudio.com.au enquiry form (see CLAUDE.md). -->
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enquire — SAID STUDIO</title>
+  <meta name="description" content="Begin an enquiry with SAID STUDIO. We take on a limited number of events each year — tell us about yours.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="wordmark" href="index.html">Said Studio<span class="dot">.</span></a>
+      <nav class="primary-nav" aria-label="Primary">
+        <a class="nav-link" href="index.html">Home</a><a class="nav-link" href="about.html">About</a>
+        <a class="nav-link" href="services.html">Services</a><a class="nav-link" href="draping.html">Draping</a>
+        <a class="nav-link" href="portfolio.html">Portfolio</a><a class="nav-link" href="jobs.html">Careers</a><a class="nav-link nav-enquire" href="enquire.html" aria-current="page">Enquire</a>
+      </nav>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+    </div>
+  </header>
+  <div class="mobile-menu" id="mobile-menu">
+    <nav aria-label="Mobile"><a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services</a><a href="draping.html">Draping</a><a href="portfolio.html">Portfolio</a><a href="jobs.html">Careers</a><a href="enquire.html">Enquire</a></nav>
+    <p class="menu-foot">hello@saidstudio.com.au · Melbourne</p>
+  </div>
+
+  <main id="main">
+    <section class="section enquire-hero" style="padding-top:calc(var(--space-section) + 3rem)">
+      <div class="enquire-media"><img src="assets/hero-enquire.jpg" alt="" aria-hidden="true" loading="lazy"></div>
+      <div class="container enquire-layout">
+        <div class="enquire-intro reveal">
+          <div class="cmark" style="max-width:34ch;padding:1.6rem 1.9rem">
+            <p class="lede" style="margin:0">Tell us a little about your plans, and we'll be in touch soon with next steps. We take on a limited number of events each year, and we can't wait to learn more about yours!</p>
+          </div>
+          <p style="margin-top:2.4rem"><a class="text-link" href="mailto:hello@saidstudio.com.au">hello@saidstudio.com.au</a></p>
+        </div>
+
+        <div class="enquire-form-wrap reveal" data-delay="1">
+          <form id="enquiry-form" novalidate>
+            <div class="honeypot" aria-hidden="true"><label>Leave this field empty<input type="text" name="company_website" tabindex="-1" autocomplete="off"></label></div>
+            <div class="form-grid">
+              <div class="form-field"><label for="f-name">Name <span class="req">(required)</span></label><input id="f-name" name="name" type="text" autocomplete="name" placeholder="First + last" required></div>
+              <div class="form-field"><label for="f-partner">Partner&rsquo;s Name (if applicable)</label><input id="f-partner" name="partner_name" type="text" placeholder="First + last"></div>
+              <div class="form-field"><label for="f-email">Email <span class="req">(required)</span></label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
+              <div class="form-field"><label for="f-phone">Phone (with country code) <span class="req">(required)</span></label><input id="f-phone" name="phone" type="tel" autocomplete="tel" placeholder="+61 400 000 000" required></div>
+              <div class="form-field"><label for="f-type">Event Type <span class="req">(required)</span></label><select id="f-type" name="event_type" required><option value="" selected disabled>Select one</option><option>Engagement</option><option>Wedding</option><option>Corporate</option><option>Brand</option><option>Birthday</option><option>Other</option></select></div>
+              <div class="form-field"><label for="f-mood">Event Style or Mood Imagery (Include a link)</label><input id="f-mood" name="mood_imagery_link" type="text" placeholder="Pinterest, Instagram, paste a link"></div>
+              <div class="form-field"><label for="f-date">Preferred Date <span class="req">(required)</span></label><input id="f-date" name="preferred_date" type="date" required></div>
+              <div class="form-field"><label for="f-venue">Venue <span class="req">(required)</span></label><input id="f-venue" name="venue" type="text" required></div>
+              <div class="form-field"><label for="f-venue-address">Venue Address</label><input id="f-venue-address" name="venue_address" type="text" autocomplete="street-address"></div>
+              <div class="form-field"><label for="f-services">Services Needed <span class="req">(required)</span></label><select id="f-services" name="services_needed" required><option value="" selected disabled>Select one</option><option>Event Design &amp; Styling</option><option>Custom Draping Installation</option><option>Editorial / Photo Shoot</option><option>Brand Event</option><option>Other</option></select></div>
+              <div class="form-field"><label for="f-total-budget">Total Event Budget</label><input id="f-total-budget" name="total_event_budget" type="text"></div>
+              <div class="form-field"><label for="f-styling-budget">Styling &amp; Design Budget <span class="req">(required)</span></label><select id="f-styling-budget" name="styling_design_budget" required><option value="" selected disabled>Select a range</option><option>$3-5K</option><option>$5-10K</option><option>$10K+</option></select><p class="form-help">Our styling services include creative direction, supplier management, bump-in and styling. D&eacute;cor items (e.g. candles, florals, draping, props) are quoted separately</p></div>
+              <div class="form-field"><label for="f-referral">How did you hear about us? <span class="req">(required)</span></label><select id="f-referral" name="referral_source" required><option value="" selected disabled>Select one</option><option>Google</option><option>Instagram</option><option>TikTok</option><option>Referral</option><option>Past Event</option></select></div>
+            </div>
+            <div class="form-field"><label for="f-goals">What are the main things you are hoping to achieve with styling support? <span class="req">(required)</span></label><textarea id="f-goals" name="styling_goals" required></textarea></div>
+            <p class="form-note">Your details are used only to respond to your enquiry.</p>
+            <button class="btn btn--solid" type="submit"><span class="btn-dot"></span>Submit</button>
+          </form>
+          <div class="form-success" tabindex="-1"><p class="display-italic">Thank you for contacting us, we will be in touch with you shortly!</p></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand"><a class="wordmark" href="index.html">Said Studio<span class="dot">.</span></a><p>Boutique event design &amp; styling. Melbourne, Australia.</p></div>
+      <div class="footer-col"><span class="label">Studio</span><a href="about.html">About</a><a href="services.html">Services</a><a href="draping.html">Draping</a><a href="jobs.html">Careers</a></div>
+      <div class="footer-col"><span class="label">Work</span><a href="portfolio.html">Portfolio</a><a href="enquire.html">Enquire</a></div>
+      <div class="footer-col"><span class="label">Contact</span><a href="mailto:hello@saidstudio.com.au">Email us</a><a href="https://www.instagram.com/saidstudio.events/" rel="noopener" target="_blank">Instagram</a><a href="https://www.tiktok.com/@saidstudio.events" rel="noopener" target="_blank">TikTok</a><a href="https://au.pinterest.com/SAIDSTUDIOEVENTS/" rel="noopener" target="_blank">Pinterest</a></div>
+    </div>
+    <div class="container footer-base"><span>© 2026 Said Studio</span><span>Events done differently</span></div>
+  </footer>
+  <script src="js/main.js" defer></script>
+</body>
+</html>

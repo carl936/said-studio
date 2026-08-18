@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<!-- SAID STUDIO — DRAPING (2026, per EVENTS DONE DIFFERENTLY.pdf p.4) -->
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Draping — SAID STUDIO</title>
+  <meta name="description" content="Custom drapery and textile installations by SAID STUDIO — ceremony backdrops, statement installations and sculptural tablescapes, designed and installed by our team.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header site-header--dark">
+    <div class="container header-inner">
+      <a class="wordmark" href="index.html">Said Studio<span class="dot">.</span></a>
+      <nav class="primary-nav" aria-label="Primary">
+        <a class="nav-link" href="index.html">Home</a><a class="nav-link" href="about.html">About</a>
+        <a class="nav-link" href="services.html">Services</a><a class="nav-link" href="draping.html" aria-current="page">Draping</a>
+        <a class="nav-link" href="portfolio.html">Portfolio</a><a class="nav-link" href="jobs.html">Careers</a><a class="nav-link nav-enquire" href="enquire.html">Enquire</a>
+      </nav>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+    </div>
+  </header>
+  <div class="mobile-menu" id="mobile-menu">
+    <nav aria-label="Mobile"><a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services</a><a href="draping.html">Draping</a><a href="portfolio.html">Portfolio</a><a href="jobs.html">Careers</a><a href="enquire.html">Enquire</a></nav>
+    <p class="menu-foot">hello@saidstudio.com.au · Melbourne</p>
+  </div>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="ihero ihero--bw">
+      <div class="ihero-media"><img src="assets/hero-draping.jpg" style="object-position:50% 68%" alt="Hand-gathered satin draping in soft cascading folds" fetchpriority="high"></div>
+      <div class="container"><h1>Fabric as<br>architecture</h1></div>
+    </section>
+
+    <!-- INTRO -->
+    <section class="intro intro--square">
+      <div class="container"><div class="cmark prose">
+        <p>At SAID STUDIO we believe fabric has the power to completely change the way a space is experienced. Every installation is designed specifically for the venue, using drapery to introduce softness, define spaces, frame key moments and create architectural impact.</p>
+        <p>Whether it's a ceremony backdrop, statement installation or sculptural tablescape, every piece is developed, fabricated and installed by our team from start to finish.</p>
+      </div></div>
+    </section>
+
+    <!-- SHOWCASE IMAGE -->
+    <!-- Draping showcase = your DRAPING PAGE.MP4 (add the compressed file at assets/video-draping.mp4).
+         Poster is the exact frame from the deck; falls back to the poster if the mp4 isn't there yet. -->
+    <section class="drape-band drape-band--tall" aria-label="Draping film">
+      <!-- Seamless background film (deck p.4: tall, fills the screen). Host the
+           COMPRESSED .mp4 free on GitHub and point the src at it:
+             • jsDelivr : https://cdn.jsdelivr.net/gh/USER/REPO@main/draping.mp4
+             • or Pages : https://USER.github.io/REPO/draping.mp4
+           Replace the src below with yours. Poster shows until the film starts. -->
+      <video autoplay muted loop playsinline preload="auto"
+             poster="assets/video-draping-poster.jpg" aria-hidden="true">
+        <source src="assets/draping.mp4" type="video/mp4">
+      </video>
+    </section>
+
+    <!-- WHAT WE OFFER (carousel) — slides from the old draping page, styled to the
+         2026 look. Nav lives OUTSIDE the slides so the arrows keep working after
+         slide 1 (they used to be nested inside each slide and hid with it). -->
+    <section class="section drape-carousel" data-carousel>
+      <div class="container">
+        <div class="section-head reveal"><span class="label">What We Offer</span></div>
+        <div class="dc-viewport reveal">
+          <div class="dc-slide is-active">
+            <div class="dc-media"><img src="assets/drape-spaces.jpg" alt="Bride holding a bouquet before draping"></div>
+            <div class="dc-body">
+              <p>Transform the way a space looks and feels through custom drapery. From wall draping and room dividers to ceremony backdrops, entrances and photo moments, each installation is designed specifically for you and your celebration.</p>
+              <div class="dc-label">Spaces</div>
+            </div>
+          </div>
+          <div class="dc-slide">
+            <div class="dc-media"><img src="assets/drape-surfaces.jpg" alt="Draped feature table"></div>
+            <div class="dc-body">
+              <p>Custom draping for bridal tables, cake tables, bars, grazing tables, welcome displays and other feature surfaces. Each piece is tailored to the scale and style of your celebration, adding softness, texture and visual presence.</p>
+              <div class="dc-label">Surfaces</div>
+            </div>
+          </div>
+          <div class="dc-slide">
+            <div class="dc-media"><img src="assets/drape-details.jpg" alt="Fabric detailing"></div>
+            <div class="dc-body">
+              <p>Small-scale textile details designed to carry fabric through the finer points of a celebration. From ruffled bouquet details and custom table runners to feature tablecloths and decorative accents, each piece is created to complement the wider design.</p>
+              <div class="dc-label">Details</div>
+            </div>
+          </div>
+          <div class="dc-slide">
+            <div class="dc-media"><img src="assets/drape-custom.jpg" alt="Bespoke textile feature"></div>
+            <div class="dc-body">
+              <p>For ideas that call for something entirely custom. From oversized handmade lampshades and fabric-wrapped photobooths to welcome signs and sculptural features, we design and create bespoke textile installations specifically for the space and brief.</p>
+              <div class="dc-label">Custom</div>
+            </div>
+          </div>
+        </div>
+        <div class="dc-nav-shared reveal">
+          <span class="dc-count"><b>01</b> / 04</span>
+          <button class="dc-prev" aria-label="Previous slide">‹</button>
+          <button class="dc-next" aria-label="Next slide">›</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="section band--velvet drape-process">
+      <div class="container">
+        <div class="section-head reveal"><span class="label label--red">Our Draping Process</span></div>
+        <div class="process">
+          <div class="process-step reveal"><h3>Initial Consultation</h3><p>We start with a conversation to understand your vision, inspiration and what draws you to draping. At this stage we discuss your ideas, rough measurements, budget and any venue requirements.</p></div>
+          <div class="process-step reveal"><h3>Concept &amp; Quote</h3><p>Based on our discussion, we prepare a tailored draping proposal outlining the recommended installations, fabric selections and investment required. This may include reference imagery or mock-ups to help visualise the final look.</p></div>
+          <div class="process-step reveal"><h3>Design &amp; Planning</h3><p>Once your booking is confirmed, we refine the details together — finalising fabrics, colours, installation locations, measurements and coordinating with your venue or other suppliers where required.</p></div>
+          <div class="process-step reveal"><h3>Installation Day</h3><p>Our team manages the complete installation on site, including all draping hardware, fabrics and styling elements. We ensure everything is professionally installed and event-ready before guests arrive.</p></div>
+          <div class="process-step reveal"><h3>Packdown</h3><p>After your event, we return to carefully remove all draping and equipment, leaving the venue as we found it.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RECENT INSTALLATIONS -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head reveal"><h2>Recent Installations</h2></div>
+        <div class="case-gallery">
+          <figure class="cg-a reveal"><img src="assets/abbotsford-post3.jpg" alt="Draping installation" loading="lazy"></figure>
+          <figure class="cg-b reveal"><img src="assets/abbotsford-post1.jpg" alt="Draping installation" loading="lazy"></figure>
+          <figure class="cg-c reveal"><img src="assets/kiara-20260.jpg" alt="Draped backdrop" loading="lazy"></figure>
+          <figure class="cg-d reveal"><img src="assets/abbotsford-2post4.jpg" alt="Draping installation" loading="lazy"></figure>
+          <figure class="cg-e reveal"><img src="assets/mont-7507.jpg" alt="Draped tablescape" loading="lazy"></figure>
+          <figure class="cg-a reveal"><img src="assets/abbotsford-post15.jpg" alt="Sculptural draping" loading="lazy"></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLOSING (deck p.4: on the light base, not a burgundy band) -->
+    <section class="section">
+      <div class="container" style="text-align:center;max-width:60rem;margin-inline:auto">
+        <h2 class="reveal" style="font-size:clamp(1.6rem,3.4vw,2.6rem);margin-bottom:1.6rem">Every installation is one of one</h2>
+        <p class="reveal" style="max-width:56ch;margin-inline:auto;line-height:1.95">All draping and installation work is custom-designed and quoted individually. Pricing varies based on the scale, complexity and fabric selection required to bring your vision to life. To receive a tailored proposal, reach out via our enquire page with your venue details and creative direction.</p>
+        <p class="reveal" style="margin-top:2.4rem"><a class="btn btn--solid" href="enquire.html"><span class="btn-dot"></span>Enquire Now</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand"><a class="wordmark" href="index.html">Said Studio<span class="dot">.</span></a><p>Boutique event design &amp; styling. Melbourne, Australia.</p></div>
+      <div class="footer-col"><span class="label">Studio</span><a href="about.html">About</a><a href="services.html">Services</a><a href="draping.html">Draping</a><a href="jobs.html">Careers</a></div>
+      <div class="footer-col"><span class="label">Work</span><a href="portfolio.html">Portfolio</a><a href="enquire.html">Enquire</a></div>
+      <div class="footer-col"><span class="label">Contact</span><a href="mailto:hello@saidstudio.com.au">Email us</a><a href="https://www.instagram.com/saidstudio.events/" rel="noopener" target="_blank">Instagram</a><a href="https://www.tiktok.com/@saidstudio.events" rel="noopener" target="_blank">TikTok</a><a href="https://au.pinterest.com/SAIDSTUDIOEVENTS/" rel="noopener" target="_blank">Pinterest</a></div>
+    </div>
+    <div class="container footer-base"><span>© 2026 Said Studio</span><span>Events done differently</span></div>
+  </footer>
+  <script src="js/main.js" defer></script>
+</body>
+</html>

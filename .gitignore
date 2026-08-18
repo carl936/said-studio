@@ -1,0 +1,45 @@
+# --- macOS ---
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+.AppleDouble
+Icon?
+
+# --- Editors / IDEs ---
+.vscode/
+.idea/
+*.swp
+*~
+
+# --- Logs / caches / temp ---
+*.log
+.cache/
+.tmp/
+tmp/
+
+# --- Dependencies (none currently — safety net) ---
+node_modules/
+
+# --- AI / tooling ---
+.claude/
+
+# --- Secrets: NEVER commit ---
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+*.credentials
+*credentials*
+secrets*
+*.secret
+
+# --- Oversized / uncompressed source videos ---
+# GitHub rejects files >100MB and these aren't referenced by the site.
+# Add the COMPRESSED films as assets/homepage.mp4 + assets/draping.mp4 to enable them.
+assets/video-homepage.mov
+assets/video-draping.mp4
+*.mov

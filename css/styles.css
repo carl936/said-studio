@@ -1,0 +1,1212 @@
+/* ==========================================================================
+   SAID STUDIO, saidstudio.com.au
+   Design system (2026 refresh v2, per Canva direction)
+   Light grey base · Charcoal chrome · Burgundy dark bands · Blue accent
+   Headings: Arial Nova ALL CAPS · Body/typewriter: Courier New ALL CAPS, justified
+   ========================================================================== */
+
+/* ---------- Tokens ---------- */
+:root{
+  /* Palette (Canva): light #d3d2d2 · burgundy #210505 · charcoal #1a1816 · blue #779dca */
+  --ivory:#d3d2d2;             /* light base (was warm ivory) */
+  --ivory-deep:#c6c5c5;        /* card / recessed surface */
+  --ink:#1a1816;              /* near-black primary text */
+  --ink-soft:#5b5959;         /* muted text */
+  --oxblood:#210505;          /* burgundy dark bands */
+  --oxblood-deep:#1a1816;     /* footer / menu (charcoal chrome) */
+  --charcoal:#1a1816;         /* header, footer, entry loader */
+  --periwinkle:#779dca;       /* blue accent on dark */
+  --accent:#210505;           /* accent on light backgrounds (burgundy) */
+  --accent-dark:#779dca;      /* accent on dark backgrounds (blue) */
+  --white:#ffffff;
+  --black:#111111;
+  --hairline:#bdbcbc;         /* hairline on light grey */
+  --hairline-dark:rgba(211,210,210,.20);
+
+  /* Type: Arial Nova (headings) + Courier New (typewriter body/utility), both system fonts */
+  --font-display:"Arial Nova", Arial, "Helvetica Neue", sans-serif;
+  --font-body:"Courier New", Courier, monospace;
+  --font-utility:"Courier New", Courier, monospace;
+
+  /* Sizes reduced ~25% vs v1 (Canva: "reduce all font ~25%") */
+  /* Type scale tightened (Carolyn review Aug 2026): headings reduced, body/Courier
+     increased so the two are closer and typewriter body reads comfortably. */
+  --size-hero:clamp(2.1rem, 5.2vw, 4.2rem);
+  --size-h1:clamp(1.7rem, 3.4vw, 2.85rem);
+  --size-h2:clamp(1.35rem, 2.5vw, 2rem);
+  --size-h3:clamp(1rem, 1.5vw, 1.25rem);
+  --size-body:clamp(.95rem, .9vw, 1.02rem);  /* comfortably legible Courier */
+  --size-label:.8rem;   /* small Courier utility labels, enlarged for legibility */
+
+  --space-section:clamp(3.25rem, 6.5vw, 5.5rem);
+  --space-gutter:clamp(1.25rem, 4.5vw, 4rem);
+  --max-width:1440px;
+  --max-prose:62ch;
+
+  --ease-out:cubic-bezier(.22,1,.36,1);
+  --dur:.7s;
+}
+
+/* ---------- Reset ---------- */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+html:focus-within{scroll-behavior:smooth}
+html,body{overflow-x:hidden;overflow-x:clip}
+body{
+  background:var(--ivory);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-size:var(--size-body);
+  line-height:1.7;
+  text-transform:uppercase;      /* Canva: all font in all caps */
+  -webkit-font-smoothing:antialiased;
+}
+/* Form fields keep natural case (users type real names/emails) */
+.form-field input,.form-field select,.form-field textarea{text-transform:none}
+/* Canva: typewriter body copy justified */
+.prose p,.service-row p,.lede,.hero-sub,.drape-showcase-note,.case-overview p{text-align:justify}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+ul,ol{list-style:none}
+button{font:inherit;background:none;border:none;cursor:pointer;color:inherit}
+::selection{background:var(--accent);color:var(--ivory)}
+
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+.skip-link{
+  position:absolute;left:-9999px;top:0;z-index:300;
+  background:var(--ink);color:var(--ivory);
+  padding:.75rem 1.25rem;font-family:var(--font-utility);font-size:.85rem;
+}
+.skip-link:focus{left:0}
+
+/* ---------- Typography helpers ---------- */
+.label{
+  font-family:var(--font-utility);
+  font-size:var(--size-label);
+  font-weight:500;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+}
+.label--red{color:var(--accent)}
+/* Canva: emphasis is BOLD, never italic (class name kept for continuity) */
+.display-italic{font-family:var(--font-display);font-style:normal;font-weight:700;text-transform:uppercase}
+
+/* Headings: Arial Nova STANDARD weight, ALL CAPS, tighter tracking (Canva -63).
+   Emphasis (.display-italic / 2nd line) carries the bold weight. */
+h1,h2,h3{font-family:var(--font-display);font-weight:400;line-height:1.05;letter-spacing:-.06em;text-transform:uppercase}
+h1{font-size:var(--size-h1)}
+h2{font-size:var(--size-h2)}
+h3{font-size:var(--size-h3)}
+
+/* Standalone display "moments" that aren't h1-h3, force ALL CAPS too */
+.hero-title-flourish,.drape-showcase-flourish,
+.manifesto-line,.brand-statement,.pull-quote blockquote,
+.case-note,.case-next-title,.stat-strip .stat b,
+.about-copy .signature,.mobile-menu a{text-transform:uppercase}
+
+.prose{max-width:var(--max-prose)}
+.prose p+p{margin-top:1.2em}
+.prose em{font-style:normal;font-weight:700}
+
+/* ---------- Layout ---------- */
+.container{
+  width:100%;
+  max-width:var(--max-width);
+  margin-inline:auto;
+  padding-inline:var(--space-gutter);
+}
+.section{padding-block:var(--space-section)}
+.section--flush-top{padding-top:0}
+.section-head{margin-bottom:clamp(1.6rem,3.5vw,2.6rem)}
+.section-head .label{display:block;margin-bottom:1.1rem}
+
+/* Canva master slide: ALL main headings wrapped in square brackets.
+   Inline headings get ::before/::after; the two flex-column display titles
+   (homepage hero, draping showcase) are bracketed on their first/last span. */
+.page-hero h1::before,.section-head h2::before,.service-row h3::before,
+.about-copy h2::before,.split-head-caps::before,
+.enquire-intro h1::before,.case-hero h1::before,
+.cta-band .display-italic::before,
+.hero-title-caps::before,.drape-showcase-caps::before{content:"[\00a0"}
+.page-hero h1::after,.section-head h2::after,.service-row h3::after,
+.about-copy h2::after,.split-head-bold::after,
+.enquire-intro h1::after,.case-hero h1::after,
+.cta-band .display-italic::after,
+.hero-title-flourish::after,.drape-showcase-flourish::after{content:"\00a0]"}
+
+/* ---------- Buttons & links ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:.85rem;
+  font-family:var(--font-utility);
+  font-size:.78rem;font-weight:500;
+  letter-spacing:.24em;text-transform:uppercase;
+  padding:1.05rem 2.1rem;
+  border:1px solid currentColor;
+  border-radius:999px;
+  transition:background var(--dur) var(--ease-out),color var(--dur) var(--ease-out),border-color var(--dur) var(--ease-out);
+}
+.btn .btn-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);transition:background var(--dur) var(--ease-out)}
+.btn:hover{background:var(--ink);color:var(--ivory);border-color:var(--ink)}
+.btn:hover .btn-dot{background:var(--ivory)}
+.btn--solid{background:var(--accent);border-color:var(--accent);color:var(--ivory)}
+.btn--solid .btn-dot{background:var(--ivory)}
+.btn--solid:hover{background:var(--ink);border-color:var(--ink)}
+.btn--light{color:var(--ivory)}
+.btn--light:hover{background:var(--ivory);color:var(--ink);border-color:var(--ivory)}
+
+.text-link{
+  font-family:var(--font-utility);font-size:.9rem;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;
+  display:inline-flex;align-items:baseline;gap:.6rem;
+  padding-bottom:.35rem;position:relative;
+}
+.text-link::after{
+  content:"";position:absolute;left:0;bottom:0;height:1px;width:100%;
+  background:var(--accent);
+  transform-origin:left;transition:transform var(--dur) var(--ease-out);
+}
+.text-link:hover::after{transform:scaleX(.35)}
+
+/* ---------- Header ---------- */
+.site-header{
+  position:fixed;inset:0 0 auto 0;z-index:100;
+  transition:background .45s var(--ease-out), box-shadow .45s var(--ease-out), transform .45s var(--ease-out);
+}
+/* Canva: pages without an opaque hero image get a charcoal top bar */
+.site-header:not(.site-header--dark){background:var(--charcoal)}
+.site-header .wordmark,.site-header .nav-link,.site-header .menu-toggle{color:var(--ivory)}
+.site-header .wordmark .dot{color:var(--accent-dark)} /* blue dot on dark chrome */
+.site-header.is-scrolled{
+  background:var(--charcoal);
+  backdrop-filter:blur(10px);
+  box-shadow:0 1px 0 rgba(0,0,0,.35);
+}
+.site-header.is-hidden{transform:translateY(-100%)}
+.header-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-block:1.1rem;
+}
+.wordmark{
+  font-family:var(--font-display);
+  font-size:1.3rem;font-weight:600;letter-spacing:.12em;
+  text-transform:uppercase;
+  z-index:120;position:relative;
+}
+.wordmark .dot{color:var(--accent)}
+.site-header--dark:not(.is-scrolled) .wordmark,
+.site-header--dark:not(.is-scrolled) .nav-link,
+.site-header--dark:not(.is-scrolled) .menu-toggle{color:var(--ivory)}
+.site-header--dark:not(.is-scrolled) .wordmark .dot{color:var(--accent-dark)}
+
+.primary-nav{display:flex;align-items:center;gap:2.4rem}
+.nav-link{
+  font-family:var(--font-utility);font-size:.74rem;font-weight:500;
+  letter-spacing:.22em;text-transform:uppercase;
+  position:relative;padding-block:.4rem;
+}
+.nav-link::after{
+  content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;
+  background:var(--accent);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .45s var(--ease-out);
+}
+.nav-link:hover::after,.nav-link[aria-current="page"]::after{transform:scaleX(1)}
+.nav-enquire{
+  border:1px solid currentColor;border-radius:999px;
+  padding:.65rem 1.4rem;
+}
+.nav-enquire::after{display:none}
+.nav-enquire:hover{background:var(--accent);border-color:var(--accent);color:var(--ivory)}
+
+.menu-toggle{
+  display:none;z-index:120;position:relative;
+  font-family:var(--font-utility);font-size:.74rem;font-weight:500;
+  letter-spacing:.24em;text-transform:uppercase;
+  padding:.5rem 0;
+}
+
+/* Mobile overlay menu */
+.mobile-menu{
+  position:fixed;inset:0;z-index:110;
+  background:var(--oxblood-deep);color:var(--ivory);
+  display:flex;flex-direction:column;justify-content:center;
+  padding:var(--space-gutter);
+  opacity:0;visibility:hidden;
+  transition:opacity .5s var(--ease-out),visibility 0s .5s;
+}
+.mobile-menu.is-open{opacity:1;visibility:visible;transition:opacity .5s var(--ease-out)}
+.mobile-menu nav{display:flex;flex-direction:column;gap:.4rem}
+.mobile-menu a{
+  font-family:var(--font-display);font-style:normal;font-weight:700;
+  font-size:clamp(2.2rem,9vw,3.4rem);line-height:1.25;
+  opacity:0;transform:translateY(24px);
+  transition:opacity .6s var(--ease-out),transform .6s var(--ease-out);
+}
+.mobile-menu.is-open a{opacity:1;transform:none}
+.mobile-menu.is-open a:nth-child(2){transition-delay:.06s}
+.mobile-menu.is-open a:nth-child(3){transition-delay:.12s}
+.mobile-menu.is-open a:nth-child(4){transition-delay:.18s}
+.mobile-menu.is-open a:nth-child(5){transition-delay:.24s}
+.mobile-menu.is-open a:nth-child(6){transition-delay:.3s}
+.mobile-menu .menu-foot{
+  margin-top:3rem;
+  font-family:var(--font-utility);font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(211,210,210,.6);
+}
+
+/* ---------- Curtain loader (homepage signature) ---------- */
+.curtain{
+  position:fixed;inset:0;z-index:200;display:flex;pointer-events:none;
+}
+.curtain-panel{
+  flex:1;height:100%;
+  background:var(--charcoal); /* Canva: entry loader in charcoal #1a1816 */
+  transition:transform 1.4s var(--ease-out);
+}
+.curtain-panel--left{box-shadow:inset -40px 0 60px -30px rgba(24,21,18,.18)}
+.curtain-panel--right{box-shadow:inset 40px 0 60px -30px rgba(24,21,18,.18)}
+.curtain-mark{
+  position:absolute;inset:0;display:grid;place-items:center;
+  font-family:var(--font-display);font-weight:600;letter-spacing:.18em;
+  text-transform:uppercase;font-size:clamp(1.1rem,2.4vw,1.6rem);color:var(--ivory);
+  transition:opacity .5s ease;
+}
+.curtain.is-open .curtain-panel--left{transform:translateX(-101%)}
+.curtain.is-open .curtain-panel--right{transform:translateX(101%)}
+.curtain.is-open .curtain-mark{opacity:0}
+.curtain.is-done{display:none}
+
+/* ---------- Hero (homepage) ---------- */
+.hero{
+  position:relative;min-height:100svh;
+  display:flex;align-items:flex-end;
+  color:var(--ivory);
+  isolation:isolate;
+}
+.hero-media{position:absolute;inset:0;z-index:-2;overflow:hidden}
+.hero-media img{
+  width:100%;height:100%;object-fit:cover;object-position:50% 46%;
+  animation:heroZoom 18s var(--ease-out) forwards;
+}
+@keyframes heroZoom{from{transform:scale(1.12)}to{transform:scale(1)}}
+/* Two-layer wash: deepens the base for text, then a soft left vignette
+   so the bottom-left headline stays legible over the checkerboard floor */
+.hero::after{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:
+    linear-gradient(to top,rgba(24,18,16,.82) 0%,rgba(24,18,16,.30) 46%,rgba(24,18,16,.34) 100%),
+    linear-gradient(to right,rgba(24,18,16,.42) 0%,rgba(24,18,16,0) 48%);
+}
+.hero-inner{
+  width:100%;
+  padding-bottom:clamp(3rem,8vw,6rem);
+}
+.hero .label{color:rgba(211,210,210,.85);display:block;margin-bottom:1.6rem}
+.hero-title{
+  font-family:var(--font-display);
+  display:flex;flex-direction:column;
+  line-height:.98;
+  text-shadow:0 1px 40px rgba(24,18,16,.35);
+}
+/* Oversized high-contrast Arial Nova, confident all-caps statement line
+   with an italic flourish carrying the brand word */
+.hero-title-caps{
+  font-weight:400;font-style:normal;text-transform:uppercase;
+  letter-spacing:-.06em;
+  font-size:clamp(2.1rem,6.4vw,4.6rem);
+}
+.hero-title-flourish{
+  font-weight:700;font-style:normal;
+  letter-spacing:-.06em;
+  font-size:clamp(2.3rem,7vw,5.2rem);
+  margin-top:.02em;
+}
+.hero-title-flourish .dot-red{color:var(--accent-dark)}
+.hero-sub{
+  margin-top:1.8rem;max-width:46ch;
+  font-size:clamp(1.05rem,1.5vw,1.25rem);
+  color:rgba(211,210,210,.88);
+}
+.hero-actions{margin-top:2.4rem;display:flex;gap:1.2rem;flex-wrap:wrap}
+.hero-scroll{
+  position:absolute;right:var(--space-gutter);bottom:clamp(3rem,8vw,6rem);
+  font-family:var(--font-utility);font-size:.68rem;letter-spacing:.3em;text-transform:uppercase;
+  color:rgba(211,210,210,.75);
+  writing-mode:vertical-rl;
+  display:flex;align-items:center;gap:1rem;
+}
+.hero-scroll::after{
+  content:"";width:1px;height:54px;background:rgba(211,210,210,.5);
+  animation:scrollPulse 2.4s ease-in-out infinite;
+}
+@keyframes scrollPulse{0%,100%{transform:scaleY(.4);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}}
+
+/* Reveal-on-load staging inside hero */
+.hero [data-stage]{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease-out),transform .9s var(--ease-out)}
+.is-revealed .hero [data-stage]{opacity:1;transform:none}
+.is-revealed .hero [data-stage="2"]{transition-delay:.15s}
+.is-revealed .hero [data-stage="3"]{transition-delay:.3s}
+.is-revealed .hero [data-stage="4"]{transition-delay:.45s}
+
+/* ---------- Acknowledgement of Country (homepage, under hero) ---------- */
+.acknowledgement{
+  /* Tightened per Carolyn — was too much air above/below the acknowledgement. */
+  padding-block:clamp(2rem,3.6vw,3rem);
+  border-bottom:1px solid var(--hairline);
+}
+.acknowledgement p{
+  max-width:72ch;margin-inline:auto;text-align:center;
+  font-size:.98rem;line-height:1.75;color:var(--ink-soft);
+}
+
+/* ---------- Homepage: images entirely black & white (Carolyn brief, CSV row 14) ----------
+   Recent-events cards + founder portrait already use prepared -bw.jpg files;
+   this desaturates the remaining homepage photography (hero + editorial splits). */
+.page-home .hero-media img,
+.page-home .split-media img{filter:grayscale(1)}
+
+/* ---------- Manifesto (centred standalone statement) ---------- */
+.manifesto{text-align:center}
+.manifesto-line{
+  font-family:var(--font-display);font-weight:500;
+  font-size:clamp(1rem,1.8vw,1.45rem);line-height:1.5;
+  max-width:66ch;margin-inline:auto;
+}
+.manifesto-line em{font-style:normal;font-weight:700;color:var(--accent)}
+.manifesto .label{display:block;margin-bottom:2rem}
+
+/* ---------- Editorial split rows ---------- */
+.split{
+  display:grid;grid-template-columns:repeat(12,1fr);
+  gap:clamp(1.5rem,4vw,4rem);align-items:stretch;
+}
+/* Image stretches to the copy's height (equal-height columns) so a tall image
+   against short copy no longer leaves a screen of dead space beside the text.
+   The absolutely-positioned <img> gives the cell no intrinsic height, letting
+   it match the copy column; mobile (stacked) sets an explicit aspect-ratio. */
+.split-media{grid-column:1 / span 6;overflow:hidden;position:relative}
+.split-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%;transition:transform 1.2s var(--ease-out)}
+.split-media:hover img{transform:scale(1.03)}
+.split-copy{grid-column:8 / span 5}
+.split--flip .split-media{grid-column:7 / span 6;order:2}
+.split--flip .split-copy{grid-column:1 / span 5;order:1}
+/* Portrait variant (founder photo): show the image tall/uncropped rather than
+   stretching it to the shorter copy — copy sits centred beside it. */
+.split--portrait{align-items:center}
+.split--portrait .split-media{aspect-ratio:4/5;max-height:720px}
+.split-copy .label{display:block;margin-bottom:1.2rem}
+.split-copy h2{margin-bottom:1.4rem}
+.split-copy .text-link,.split-copy .btn{margin-top:2rem}
+/* Two-line split headline (Canva: standard first line, BOLD emphasis on the
+   second line) — e.g. "FABRIC AS / ARCHITECTURE", "MEET / CAROLYN". */
+.split-head{display:flex;flex-direction:column;line-height:1.05}
+.split-head-caps{font-weight:400;font-size:clamp(1.8rem,3vw,2.7rem)}
+.split-head-bold{font-weight:700;font-size:clamp(2rem,3.4vw,3rem)}
+.split-sig{
+  margin-top:2rem;
+  font-family:var(--font-display);font-style:normal;font-weight:700;font-size:1.25rem;
+}
+
+/* ---------- Case study index cards (home + gallery) ---------- */
+.case-grid{
+  display:grid;grid-template-columns:repeat(12,1fr);
+  gap:clamp(1.5rem,3.5vw,3rem);
+}
+.case-card{position:relative;display:block}
+.case-card figure{overflow:hidden;background:var(--ivory-deep)}
+.case-card img{
+  aspect-ratio:var(--ratio,3/4);width:100%;object-fit:cover;
+  transition:transform 1.1s var(--ease-out),filter 1.1s var(--ease-out);
+}
+.case-card:hover img{transform:scale(1.04)}
+.case-meta{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;margin-top:1.1rem}
+.case-meta h3{font-size:clamp(1.25rem,2vw,1.6rem);font-style:normal;font-weight:700}
+.case-meta .case-no{
+  font-family:var(--font-utility);font-size:.68rem;letter-spacing:.24em;
+  color:var(--ink-soft);text-transform:uppercase;white-space:nowrap;
+}
+.case-tag{
+  display:inline-block;margin-top:.4rem;
+  font-family:var(--font-utility);font-size:.68rem;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--accent);
+}
+/* Offset editorial rhythm */
+.case-grid .case-card:nth-child(3n+1){grid-column:1 / span 5;--ratio:3/4}
+.case-grid .case-card:nth-child(3n+2){grid-column:7 / span 6;--ratio:4/3;margin-top:clamp(2rem,8vw,7rem)}
+.case-grid .case-card:nth-child(3n){grid-column:3 / span 6;--ratio:16/10}
+
+/* Homepage "Recent Events": deliberate, balanced 3-up of equal portraits
+   (overrides the offset editorial rhythm used on the portfolio landing). */
+.case-grid--trio{grid-template-columns:repeat(3,1fr);gap:clamp(1rem,2.2vw,2rem);align-items:start}
+.case-grid--trio .case-card:nth-child(n){grid-column:auto;margin-top:0}
+.case-grid--trio .case-card img{aspect-ratio:4/5}
+
+/* ---------- Dark band (draping spotlight) ---------- */
+.band--velvet{background:var(--oxblood);color:var(--ivory)}
+.band--velvet .label{color:rgba(211,210,210,.65)}
+.band--velvet .label--red{color:var(--accent-dark)}
+.band--velvet .hairline{border-color:var(--hairline-dark)}
+/* Charcoal statement band (homepage "The Studio") */
+.band--charcoal{background:var(--charcoal);color:var(--ivory)}
+.band--charcoal .label--red{color:var(--accent-dark)}
+.band--charcoal .manifesto-line em{color:var(--accent-dark)}
+
+/* Homepage "The Studio": semi-transparent B&W tablescape behind the statement,
+   with a light wash so the dark text stays legible (Canva mock). */
+.studio-band{position:relative;isolation:isolate;overflow:hidden;background:var(--ivory);
+  min-height:clamp(440px,56vh,580px);display:flex;align-items:center}
+.studio-media{position:absolute;inset:0;z-index:-1;overflow:hidden}
+.studio-media img{width:100%;height:100%;object-fit:cover;object-position:50% 48%;filter:grayscale(1);opacity:.5}
+.studio-media::after{content:"";position:absolute;inset:0;background:rgba(211,210,210,.34)}
+
+/* Page-hero with a faded background image (About / Services) — keeps black text */
+.page-hero--bg{position:relative;isolation:isolate;overflow:hidden}
+.page-hero--bg .page-hero-media{position:absolute;inset:0;z-index:-1;overflow:hidden}
+.page-hero--bg .page-hero-media img{width:100%;height:100%;object-fit:cover;opacity:.22}
+.page-hero--bg .page-hero-media::after{content:"";position:absolute;inset:0;background:linear-gradient(to right,rgba(211,210,210,.15),rgba(211,210,210,.75))}
+
+/* Draping "What We Offer" carousel (Canva) */
+.drape-carousel{background:var(--charcoal);color:var(--ivory)}
+.drape-carousel .label{color:rgba(211,210,210,.7)}
+.dc-slide{display:none;grid-template-columns:1fr 1fr;gap:clamp(1.5rem,4vw,3.5rem);align-items:stretch}
+.dc-slide.is-active{display:grid}
+.dc-media{overflow:hidden}
+.dc-media img{width:100%;height:clamp(340px,58vh,600px);object-fit:cover}
+.dc-body{display:flex;flex-direction:column;justify-content:space-between;padding:.5rem 0}
+.dc-body p{font-family:var(--font-body);text-transform:uppercase;text-align:justify;line-height:1.85;max-width:48ch}
+.dc-label{font-family:var(--font-display);font-weight:700;text-transform:uppercase;letter-spacing:-.06em;font-size:clamp(2rem,5vw,3.4rem);text-align:right;align-self:flex-end;margin-top:2rem}
+.dc-nav{display:flex;align-items:center;justify-content:flex-end;gap:1.4rem;margin-top:2.2rem}
+.dc-nav button{font-family:var(--font-display);font-size:1.6rem;line-height:1;color:var(--ivory);width:46px;height:46px;border:1px solid var(--hairline-dark);border-radius:50%;transition:background .3s,color .3s,border-color .3s}
+.dc-nav button:hover{background:var(--accent-dark);color:var(--charcoal);border-color:var(--accent-dark)}
+.dc-count{font-family:var(--font-utility);font-size:.66rem;letter-spacing:.24em}
+.dc-count b{color:var(--accent-dark);font-weight:700}
+@media (max-width:860px){.dc-slide.is-active{grid-template-columns:1fr}.dc-media img{height:clamp(260px,48vh,420px)}}
+
+/* ---------- Quote / brand statement ---------- */
+.pull-quote{
+  max-width:56rem;margin-inline:auto;text-align:center;
+}
+.pull-quote blockquote,
+.pull-quote .brand-statement{
+  font-family:var(--font-display);font-style:normal;font-weight:700;
+  font-size:clamp(1.4rem,1rem + 2.4vw,2.5rem);line-height:1.42;
+  max-width:32ch;margin-inline:auto;
+  text-wrap:balance;
+}
+.pull-quote blockquote::before{content:"“"}
+.pull-quote blockquote::after{content:"”"}
+.pull-quote .label{display:block;margin-bottom:1.6rem}
+.pull-quote cite{
+  display:block;margin-top:1.8rem;font-style:normal;
+  font-family:var(--font-utility);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-soft);
+}
+.band--velvet .pull-quote cite{color:rgba(211,210,210,.6)}
+
+/* ---------- Collaborators strip ---------- */
+.collab-strip{border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}
+.collab-row{
+  display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;
+  gap:1.5rem 3rem;padding-block:2.6rem;
+}
+.collab-name{
+  font-family:var(--font-display);font-size:clamp(1.1rem,1.8vw,1.5rem);
+  letter-spacing:.08em;text-transform:uppercase;
+}
+.collab-handle{
+  font-family:var(--font-utility);font-size:.7rem;letter-spacing:.2em;color:var(--ink-soft);
+}
+
+/* ---------- CTA band ---------- */
+.cta-band{text-align:center}
+.cta-band .display-italic{
+  font-size:clamp(1.7rem,3.6vw,2.85rem);line-height:1.2;
+  max-width:24ch;margin-inline:auto;
+}
+.cta-band p{max-width:48ch;margin:1.6rem auto 0}
+.cta-band .btn{margin-top:2.6rem}
+
+/* ---------- Page hero (interior pages) ---------- */
+.page-hero{padding-top:calc(var(--space-section) + 3rem);padding-bottom:clamp(3rem,7vw,5rem)}
+.page-hero .label{display:block;margin-bottom:1.4rem}
+.page-hero h1{max-width:14ch}
+.page-hero h1 em{font-style:normal;font-weight:700;color:var(--accent)}
+.page-hero .lede{margin-top:2rem;max-width:54ch;font-size:clamp(1.1rem,1.6vw,1.35rem)}
+.page-hero--center{text-align:center}
+.page-hero--center h1,.page-hero--center .lede{margin-inline:auto}
+
+/* ---------- Draping full-bleed craft showcase (draping page) ----------
+   Big-serif-over-photo editorial band. Full-bleed image, bottom-left
+   headline, two-layer wash for legibility over bright silk. */
+.drape-showcase{
+  position:relative;min-height:min(86vh,860px);
+  display:flex;align-items:flex-end;
+  color:var(--ivory);isolation:isolate;overflow:hidden;
+}
+.drape-showcase img{
+  position:absolute;inset:0;z-index:-2;
+  width:100%;height:100%;object-fit:cover;object-position:50% 40%;
+}
+.drape-showcase::after{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:
+    linear-gradient(to top,rgba(24,18,16,.82) 0%,rgba(24,18,16,.22) 55%,rgba(24,18,16,.32) 100%),
+    linear-gradient(to right,rgba(24,18,16,.48) 0%,rgba(24,18,16,0) 52%);
+}
+.drape-showcase .container{padding-block:clamp(3rem,7vw,5.5rem)}
+.drape-showcase .label{color:rgba(211,210,210,.85);display:block;margin-bottom:1.4rem}
+.drape-showcase h2{
+  font-family:var(--font-display);line-height:.94;max-width:16ch;
+  text-shadow:0 1px 40px rgba(24,18,16,.35);
+}
+.drape-showcase-caps{
+  display:block;font-weight:400;text-transform:uppercase;letter-spacing:-.06em;
+  font-size:clamp(2rem,5vw,4rem);
+}
+.drape-showcase-flourish{
+  display:block;font-weight:700;font-style:normal;letter-spacing:-.06em;
+  font-size:clamp(2.2rem,5.6vw,4.6rem);margin-top:.02em;
+}
+.drape-showcase-flourish .dot-red{color:var(--accent-dark)}
+.drape-showcase-note{
+  margin-top:1.6rem;max-width:42ch;color:rgba(211,210,210,.88);
+  font-size:clamp(1.05rem,1.5vw,1.2rem);
+}
+
+/* ---------- Services ---------- */
+.service-list{border-top:1px solid var(--hairline)}
+.service-row{
+  display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(1.5rem,3vw,3rem);
+  padding-block:clamp(2.4rem,5vw,3.8rem);
+  border-bottom:1px solid var(--hairline);
+}
+.service-row .service-kicker{grid-column:1 / span 2}
+.service-row h3{grid-column:3 / span 4;font-style:normal;font-weight:700}
+.service-row p{grid-column:8 / span 5}
+.service-kicker{
+  font-family:var(--font-utility);font-size:.84rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--accent);
+}
+
+/* Services feature image, full-width editorial band between sections */
+.services-feature{overflow:hidden}
+.services-feature img{
+  width:100%;height:clamp(340px,55vh,640px);
+  object-fit:cover;object-position:50% 45%;
+}
+
+.ethos-grid{
+  display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(2rem,4vw,3.5rem);
+}
+.ethos-item{grid-column:span 4}
+.ethos-item h3{font-size:1.3rem;font-style:normal;font-weight:700;margin-bottom:.8rem}
+.ethos-item .ethos-num{color:var(--accent-dark)} /* Canva: 01-05 numbers in blue */
+.ethos-item .ethos-rule{
+  width:34px;height:2px;background:var(--accent);margin-bottom:1.4rem;
+}
+
+/* ---------- Process (numbered, a true sequence) ---------- */
+.process{counter-reset:step}
+.process-step{
+  counter-increment:step;
+  display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(1rem,3vw,3rem);
+  padding-block:clamp(2rem,4vw,3rem);
+  border-top:1px solid var(--hairline);
+}
+.band--velvet .process-step{border-color:var(--hairline-dark)}
+.process-step::before{
+  content:"0" counter(step);
+  grid-column:1 / span 2;
+  font-family:var(--font-display);font-style:normal;font-weight:700;
+  font-size:clamp(1.6rem,3vw,2.4rem);color:var(--accent);
+}
+.band--velvet .process-step::before{color:var(--accent-dark)}
+.process-step h3{grid-column:3 / span 4;font-size:1.35rem}
+.process-step p{grid-column:8 / span 5}
+
+/* ---------- Gallery ---------- */
+.filter-bar{
+  display:flex;flex-wrap:wrap;gap:.6rem 2rem;
+  padding-bottom:2.4rem;margin-bottom:clamp(2rem,5vw,3.5rem);
+  border-bottom:1px solid var(--hairline);
+}
+.filter-btn{
+  font-family:var(--font-utility);font-size:.74rem;font-weight:500;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);
+  padding:.5rem 0;position:relative;
+  transition:color .35s ease;
+}
+.filter-btn::after{
+  content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;
+  background:var(--accent);transform:scaleX(0);transform-origin:left;
+  transition:transform .45s var(--ease-out);
+}
+.filter-btn:hover{color:var(--ink)}
+.filter-btn.is-active{color:var(--accent)}
+.filter-btn.is-active::after{transform:scaleX(1)}
+
+/* Canva: uniform tiles (all images same size) */
+.masonry{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1rem,2.5vw,2rem)}
+.masonry-item{
+  overflow:hidden;display:block;width:100%;position:relative;aspect-ratio:4/5;
+  transition:opacity .5s var(--ease-out),transform .5s var(--ease-out);
+}
+.masonry-item img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease-out)}
+.masonry-item:hover img{transform:scale(1.035)}
+.masonry-item.is-hidden{display:none}
+.masonry-item .masonry-caption{
+  position:absolute;inset:auto 0 0 0;
+  padding:2.2rem 1.2rem .9rem;
+  background:linear-gradient(to top,rgba(24,21,18,.65),transparent);
+  color:var(--ivory);
+  font-family:var(--font-utility);font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;
+  opacity:0;transition:opacity .45s ease;
+}
+.masonry-item:hover .masonry-caption,.masonry-item:focus-visible .masonry-caption{opacity:1}
+
+/* ---------- Lightbox ---------- */
+.lightbox{
+  position:fixed;inset:0;z-index:150;
+  background:rgba(24,18,16,.94);
+  display:grid;place-items:center;
+  opacity:0;visibility:hidden;
+  transition:opacity .4s ease,visibility 0s .4s;
+}
+.lightbox.is-open{opacity:1;visibility:visible;transition:opacity .4s ease}
+.lightbox img{max-width:88vw;max-height:84vh;object-fit:contain}
+.lightbox-close,.lightbox-prev,.lightbox-next{
+  position:absolute;color:var(--ivory);
+  font-family:var(--font-utility);font-size:.74rem;letter-spacing:.24em;text-transform:uppercase;
+  padding:1rem;
+}
+.lightbox-close{top:1.2rem;right:var(--space-gutter)}
+.lightbox-prev{left:var(--space-gutter);top:50%;transform:translateY(-50%)}
+.lightbox-next{right:var(--space-gutter);top:50%;transform:translateY(-50%)}
+.lightbox-caption{
+  position:absolute;bottom:1.6rem;left:50%;transform:translateX(-50%);
+  color:rgba(211,210,210,.7);
+  font-family:var(--font-utility);font-size:.68rem;letter-spacing:.24em;text-transform:uppercase;
+}
+
+/* ---------- Case study article ---------- */
+.case-hero{
+  position:relative;min-height:88svh;display:flex;align-items:flex-end;
+  color:var(--ivory);isolation:isolate;
+}
+.case-hero .hero-media{z-index:-2}
+.case-hero::after{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(to top,rgba(24,18,16,.8),rgba(24,18,16,.15) 55%);
+}
+.case-hero-inner{width:100%;padding-bottom:clamp(2.5rem,7vw,5rem)}
+.case-hero h1{font-style:normal;font-weight:700;max-width:16ch}
+.case-hero .label{color:rgba(211,210,210,.8);display:block;margin-bottom:1.2rem}
+
+.case-facts{
+  display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(1.5rem,3vw,3rem);
+  padding-block:clamp(2.4rem,5vw,4rem);
+  border-bottom:1px solid var(--hairline);
+}
+.case-fact{grid-column:span 3}
+.case-fact .label{display:block;margin-bottom:.7rem}
+.case-fact p{font-family:var(--font-display);font-style:normal;font-weight:700;font-size:1.15rem;line-height:1.4}
+
+.case-body{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(1.5rem,3vw,3rem)}
+.case-overview{grid-column:1 / span 6}
+.case-overview h2{margin-bottom:1.4rem}
+.case-aside{grid-column:9 / span 4}
+.case-aside .label{display:block;margin-bottom:1rem}
+.case-aside ul{display:flex;flex-direction:column;gap:.45rem;margin-bottom:2.2rem}
+.case-aside li{font-family:var(--font-utility);font-weight:400;font-size:.72rem;letter-spacing:.04em;line-height:1.9}
+/* Instagram credit links: read as part of the list, not loud hyperlinks */
+.ig-link{color:inherit;text-decoration:none;border-bottom:1px solid var(--hairline);transition:border-color .3s ease,color .3s ease}
+.ig-link:hover{color:var(--accent);border-bottom-color:var(--accent)}
+
+.case-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1rem,2.5vw,2rem)}
+.case-gallery figure{overflow:hidden}
+.case-gallery img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s var(--ease-out)}
+.case-gallery figure:hover img{transform:scale(1.03)}
+.cg-a,.cg-b,.cg-c,.cg-d,.cg-e{grid-column:auto;aspect-ratio:4/5;margin-top:0}
+
+.case-note{
+  max-width:38ch;margin-inline:auto;text-align:center;
+  font-family:var(--font-display);font-style:normal;font-weight:700;
+  font-size:clamp(1.4rem,2.8vw,2.1rem);line-height:1.45;
+}
+
+.case-next{
+  display:block;text-align:center;
+  padding-block:var(--space-section);
+  background:var(--oxblood);color:var(--ivory);
+}
+.case-next .label{color:rgba(211,210,210,.6);display:block;margin-bottom:1.4rem}
+.case-next .case-next-title{
+  font-family:var(--font-display);font-style:normal;font-weight:700;
+  font-size:clamp(2.2rem,5.5vw,4.2rem);
+  transition:color .5s ease;
+}
+.case-next:hover .case-next-title{color:var(--accent-dark)}
+
+/* ---------- About ---------- */
+.about-portrait{
+  display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(1.5rem,4vw,4rem);align-items:start;
+}
+.about-portrait .portrait{grid-column:1 / span 5;position:sticky;top:7rem}
+.about-portrait .about-copy{grid-column:7 / span 6}
+.about-copy h2{margin-bottom:1.6rem}
+.about-copy .signature{
+  margin-top:2.4rem;
+  font-family:var(--font-display);font-style:normal;font-weight:700;font-size:1.5rem;
+}
+.about-copy .signature small{
+  display:block;margin-top:.4rem;
+  font-family:var(--font-utility);font-style:normal;font-size:.7rem;
+  letter-spacing:.26em;text-transform:uppercase;color:var(--ink-soft);
+}
+
+.stat-strip{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:2rem;
+  background:var(--charcoal);color:var(--ivory);          /* Canva: dark bg, light text */
+  padding:clamp(2.2rem,5vw,3.4rem) clamp(1.5rem,4vw,3rem);
+}
+.stat-strip .stat b{
+  display:block;font-family:var(--font-display);font-style:normal;font-weight:700;
+  font-size:clamp(1.35rem,2.6vw,1.95rem);
+}
+.stat-strip .stat span{
+  font-family:var(--font-utility);font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;
+  color:rgba(211,210,210,.7);
+}
+
+/* ---------- Enquire ---------- */
+/* Canva: image on the left, fading out to the right, behind the intro */
+.enquire-hero{position:relative;isolation:isolate;overflow:hidden}
+.enquire-media{position:absolute;inset:0;z-index:-1;overflow:hidden}
+.enquire-media img{width:min(60%,640px);height:100%;object-fit:cover;object-position:50% 28%;opacity:.4}
+.enquire-media::after{content:"";position:absolute;inset:0;background:linear-gradient(to right,rgba(211,210,210,.25),rgba(211,210,210,1) 62%)}
+@media (max-width:860px){.enquire-media img{width:100%}}
+.enquire-layout{
+  display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(2rem,5vw,5rem);
+}
+.enquire-intro{grid-column:1 / span 5}
+.enquire-intro h1{font-size:clamp(2.4rem,5vw,3.8rem)}
+.enquire-intro h1 em{font-style:normal;font-weight:700;color:var(--accent)}
+.enquire-intro .lede{margin-top:1.8rem}
+.enquire-points{margin-top:2.6rem;display:flex;flex-direction:column;gap:1.2rem}
+.enquire-points li{display:flex;gap:1rem;align-items:baseline}
+.enquire-points li::before{
+  content:"";flex:none;width:6px;height:6px;border-radius:50%;
+  background:var(--accent);transform:translateY(-2px);
+}
+.enquire-form-wrap{grid-column:7 / span 6}
+
+.form-field{position:relative;margin-bottom:2.4rem}
+/* Labels: quiet Arial Nova utility caps (~12px), never display/heading scale.
+   Explicit font-size/weight/line-height so nothing can cascade in. */
+.form-field label{
+  display:block;margin-bottom:.65rem;
+  font-family:var(--font-utility);font-size:.75rem;font-weight:500;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);
+  line-height:1.6;
+}
+/* "(required)" marker: small, lowercase, subdued */
+.form-field label .req{
+  font-size:.85em;font-weight:400;letter-spacing:.08em;text-transform:lowercase;
+  color:var(--ink-soft);opacity:.65;margin-left:.4em;white-space:nowrap;
+}
+.form-field input,.form-field select,.form-field textarea{
+  width:100%;min-width:0;background:transparent;
+  border:0;border-bottom:1px solid var(--hairline);
+  padding:.65rem 0;min-height:2.75rem;
+  font-family:var(--font-body);font-size:1.05rem;color:var(--ink);
+  border-radius:0;
+  transition:border-color .35s ease;
+}
+.form-field select{
+  appearance:none;-webkit-appearance:none;cursor:pointer;
+  padding-right:1.6rem;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%235f574c' stroke-width='1.2'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right .2rem center;
+}
+/* Date input: Safari/iOS render these with intrinsic sizing unless
+   appearance is reset, force full-width, left-aligned, no clipping */
+.form-field input[type="date"]{
+  appearance:none;-webkit-appearance:none;
+  width:100%;min-width:0;display:block;
+  text-align:left;
+}
+.form-field input[type="date"]::-webkit-date-and-time-value{
+  text-align:left;margin:0;
+}
+.form-field textarea{resize:vertical;min-height:140px}
+.form-field input:focus,.form-field select:focus,.form-field textarea:focus{
+  outline:none;border-bottom-color:var(--accent);
+}
+.form-field ::placeholder{color:var(--ink-soft);opacity:.55}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 2rem}
+.form-help{
+  margin-top:.7rem;
+  font-family:var(--font-utility);font-size:.68rem;letter-spacing:.05em;
+  color:var(--ink-soft);line-height:1.7;
+}
+.form-note{
+  font-family:var(--font-utility);font-size:.74rem;letter-spacing:.06em;
+  color:var(--ink-soft);margin-bottom:2rem;line-height:1.7;
+}
+.form-success{
+  display:none;padding:3rem;border:1px solid var(--hairline);text-align:center;
+}
+.form-success .display-italic{font-size:1.9rem;margin-bottom:1rem}
+.honeypot{position:absolute;left:-9999px;opacity:0;height:0;overflow:hidden}
+
+/* ---------- Footer ---------- */
+.site-footer{background:var(--oxblood-deep);color:var(--ivory)}
+.footer-cta{
+  padding-block:var(--space-section);
+  border-bottom:1px solid var(--hairline-dark);
+}
+.footer-cta .display-italic{
+  font-size:clamp(2.4rem,6.5vw,5rem);line-height:1.12;max-width:16ch;
+}
+.footer-cta .btn{margin-top:2.6rem}
+.footer-grid{
+  display:grid;grid-template-columns:repeat(12,1fr);gap:2rem;
+  padding-block:3.4rem;
+}
+.footer-brand{grid-column:1 / span 4}
+.footer-brand .wordmark{font-size:1.15rem}
+.footer-brand p{margin-top:1rem;color:rgba(211,210,210,.65);font-size:1rem;max-width:30ch}
+.footer-col{grid-column:span 2}
+.footer-col:first-of-type{grid-column-start:7}
+.footer-col .label{color:rgba(211,210,210,.5);display:block;margin-bottom:1.1rem}
+.footer-col a{
+  display:block;padding-block:.3rem;
+  font-family:var(--font-utility);font-size:.9rem;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(211,210,210,.85);
+  transition:color .3s ease;
+}
+.footer-col a:hover{color:var(--accent-dark)}
+.footer-base{
+  display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;
+  padding-block:1.6rem;border-top:1px solid var(--hairline-dark);
+  font-family:var(--font-utility);font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(211,210,210,.45);
+}
+
+/* ---------- Scroll reveal ---------- */
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease-out),transform .9s var(--ease-out)}
+.reveal.is-visible{opacity:1;transform:none}
+.reveal[data-delay="1"].is-visible{transition-delay:.12s}
+.reveal[data-delay="2"].is-visible{transition-delay:.24s}
+.reveal[data-delay="3"].is-visible{transition-delay:.36s}
+
+/* ---------- Hairline ---------- */
+.hairline{border:0;border-top:1px solid var(--hairline)}
+
+/* ---------- Overflow guards ----------
+   Grid items default to min-width:auto, so long text (case titles,
+   collaborator handles, nowrap dates) can force 1fr tracks wider
+   than the phone viewport. min-width:0 lets them shrink instead. */
+.case-grid>*,.split>*,.case-body>*,.enquire-layout>*,
+.footer-grid>*,.case-facts>*,.ethos-grid>*,
+.service-row>*,.process-step>*,.form-grid>*{min-width:0}
+.form-field select{max-width:100%}
+.case-card figure,.case-card img{max-width:100%}
+.collab-row>*{min-width:0}
+.collab-handle{overflow-wrap:anywhere}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal,.hero [data-stage]{opacity:1;transform:none}
+  .curtain{display:none}
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width:1024px){
+  .ethos-item{grid-column:span 6}
+  .case-fact{grid-column:span 6}
+  .masonry{grid-template-columns:repeat(2,1fr)}
+}
+
+@media (max-width:860px){
+  .primary-nav{display:none}
+  .menu-toggle{display:block}
+
+  .hero-title{max-width:100%}
+  .hero-title-caps,.hero-title-flourish{overflow-wrap:anywhere;hyphens:none}
+  .drape-showcase{min-height:min(78vh,640px)}
+  .drape-showcase h2{max-width:100%}
+  .drape-showcase-caps,.drape-showcase-flourish{overflow-wrap:anywhere;hyphens:none}
+  .case-meta{flex-wrap:wrap}
+  /* 2026 type = Arial Nova ALL CAPS, wider than the old serif. Scale the big
+     display sizes down on phones and let titles wrap so nothing clips
+     (html/body use overflow-x:clip). */
+  .case-hero h1,.page-hero h1,.case-next-title{max-width:100%}
+  .case-hero h1{font-size:clamp(1.6rem,6vw,3rem)}
+  .page-hero h1{font-size:clamp(1.9rem,6.5vw,3.4rem)}
+  .hero-title-flourish{font-size:clamp(2.2rem,10vw,9rem)}
+  .drape-showcase-caps{font-size:clamp(2rem,8vw,5.5rem)}
+  .drape-showcase-flourish{font-size:clamp(2rem,8vw,6rem)}
+  h1,h2,h3,.manifesto-line,.brand-statement,.case-note,.case-next-title,
+  .case-meta h3{overflow-wrap:break-word}
+  .case-aside li,.collab-handle,.collab-name{overflow-wrap:anywhere}
+
+  /* CRITICAL: collapse 12-col grids. Even with full-width items,
+     repeat(12,1fr) keeps 11 column gaps alive, at 1.5-3rem each
+     that's 264-528px of phantom width forcing tracks (and the
+     images that fill them) wider than the phone viewport. */
+  .split,.case-grid,.case-body,
+  .enquire-layout,.about-portrait{grid-template-columns:1fr}
+  .case-gallery{grid-template-columns:repeat(2,1fr)}
+  .case-facts,.footer-grid,.ethos-grid{grid-template-columns:repeat(2,1fr)}
+  .ethos-item,.case-fact{grid-column:auto}
+
+  .split-media,.split--flip .split-media{grid-column:1 / -1;order:1;aspect-ratio:4/5}
+  .split-copy,.split--flip .split-copy{grid-column:1 / -1;order:2}
+
+  .case-grid .case-card:nth-child(n){grid-column:1 / -1;margin-top:0;--ratio:4/3}
+  .case-grid{gap:3rem}
+
+  .service-row{grid-template-columns:1fr;gap:.8rem}
+  .service-row .service-kicker,.service-row h3,.service-row p{grid-column:1 / -1}
+
+  .process-step{grid-template-columns:1fr;gap:.6rem}
+  .process-step::before,.process-step h3,.process-step p{grid-column:1 / -1}
+
+  .case-body .case-overview,.case-body .case-aside{grid-column:1 / -1}
+  .case-aside{margin-top:2rem}
+  .cg-a,.cg-b,.cg-c,.cg-d,.cg-e{grid-column:auto;margin-top:0}
+
+  .about-portrait .portrait{grid-column:1 / -1;position:static;max-width:480px}
+  .about-portrait .about-copy{grid-column:1 / -1}
+
+  .enquire-intro,.enquire-form-wrap{grid-column:1 / -1}
+  .form-grid{grid-template-columns:1fr}
+
+  .footer-brand{grid-column:1 / -1}
+  .footer-col,.footer-col:first-of-type{grid-column:auto}
+
+  .stat-strip{grid-template-columns:1fr;gap:1.6rem}
+  .hero-scroll{display:none}
+}
+
+@media (max-width:560px){
+  .masonry{grid-template-columns:1fr}
+  .case-gallery{grid-template-columns:1fr}
+}
+/* ==========================================================================
+   SAID STUDIO — 2026 SKIN (Aneto Skyline + Garet · corner-marks · no blue)
+   Layered on top of the base system so every page inherits the new look.
+   Fonts fall back to Playfair Display / Century-Gothic until the licensed
+   .woff2 files are dropped into /fonts and the @font-face below is enabled.
+   ========================================================================== */
+/* @font-face{font-family:"Aneto Skyline";src:url("../fonts/aneto-skyline.woff2") format("woff2");font-display:swap}
+   @font-face{font-family:"Garet";src:url("../fonts/garet.woff2") format("woff2");font-display:swap} */
+:root{
+  --font-aneto:"Aneto Skyline","Aneto","Playfair Display",Didot,"Bodoni 72","Times New Roman",Georgia,serif;
+  --font-garet:"Garet","Century Gothic","Futura","Avenir Next","Helvetica Neue",Arial,sans-serif;
+  --font-display:var(--font-aneto);   /* all headings → Aneto */
+  --font-body:var(--font-garet);      /* body → Garet */
+  --font-utility:var(--font-garet);   /* nav / labels / buttons → Garet */
+}
+/* Wordmark stays geometric sans */
+.wordmark{font-family:var(--font-garet);font-weight:600}
+.wordmark .dot{color:inherit!important}
+
+/* Kill the [ ] character-brackets everywhere (2026 uses corner-mark graphics) */
+.page-hero h1::before,.page-hero h1::after,.section-head h2::before,.section-head h2::after,
+.service-row h3::before,.service-row h3::after,.about-copy h2::before,.about-copy h2::after,
+.split-head-caps::before,.split-head-bold::after,.enquire-intro h1::before,.enquire-intro h1::after,
+.case-hero h1::before,.case-hero h1::after,.cta-band .display-italic::before,.cta-band .display-italic::after,
+.hero-title-caps::before,.hero-title-flourish::after,.drape-showcase-caps::before,.drape-showcase-flourish::after{content:none!important}
+
+/* Kill every blue accent → ivory on dark, burgundy stays the single accent */
+.footer-col a:hover{color:var(--ivory)}
+.hero-title-flourish .dot-red,.drape-showcase-flourish .dot-red{color:inherit}
+.ethos-item .ethos-num{color:var(--accent)}
+.band--velvet .label--red,.band--charcoal .label--red{color:rgba(211,210,210,.7)}
+.band--velvet .process-step::before{color:rgba(211,210,210,.85)}
+.band--charcoal .manifesto-line em{color:rgba(211,210,210,.9)}
+.dc-count b{color:var(--ivory)}
+.dc-nav button:hover{background:var(--ivory);color:var(--charcoal);border-color:var(--ivory)}
+.case-next:hover .case-next-title{color:rgba(211,210,210,.75)}
+
+/* Headings: wide editorial tracking to suit Aneto */
+h1,h2,h3{letter-spacing:.04em}
+.section-head h2,.page-hero h1{letter-spacing:.06em}
+.display-italic{font-weight:400}   /* Aneto emphasis, not a heavy sans bold */
+
+/* Corner-mark frame (top-left + bottom-right L) */
+.cmark{--cmark:rgba(90,89,89,.55);position:relative}
+.cmark::before,.cmark::after{content:"";position:absolute;width:22px;height:22px;pointer-events:none}
+.cmark::before{top:0;left:0;border-left:1px solid var(--cmark);border-top:1px solid var(--cmark)}
+.cmark::after{bottom:0;right:0;border-right:1px solid var(--cmark);border-bottom:1px solid var(--cmark)}
+.cmark--lg::before,.cmark--lg::after{width:30px;height:30px}
+.band--velvet .cmark,.band--charcoal .cmark,.ihero .cmark{--cmark:rgba(211,210,210,.5)}
+
+/* Interior-page hero: full-bleed image, big Aneto heading bottom-left */
+.ihero{position:relative;min-height:min(84vh,840px);display:flex;align-items:flex-end;color:var(--ivory);isolation:isolate;overflow:hidden}
+.ihero-media{position:absolute;inset:0;z-index:-2;overflow:hidden}
+.ihero-media img{width:100%;height:100%;object-fit:cover;object-position:50% 38%}
+.ihero--bw .ihero-media img{filter:grayscale(1)}
+.ihero::after{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(to top,rgba(24,18,16,.82),rgba(24,18,16,.18) 55%,rgba(24,18,16,.32)),
+             linear-gradient(to right,rgba(24,18,16,.5),rgba(24,18,16,0) 55%)}
+.ihero .container{width:100%;padding-block:clamp(3rem,7vw,5.5rem)}
+.ihero h1{font-family:var(--font-aneto);font-weight:400;text-transform:uppercase;letter-spacing:.08em;
+  line-height:1.14;font-size:clamp(2.1rem,5.6vw,4.8rem);text-shadow:0 1px 40px rgba(24,18,16,.4)}
+.ihero .lede{margin-top:1.6rem;max-width:44ch;color:rgba(211,210,210,.9)}
+.ihero .hero-actions{margin-top:2rem}
+
+/* Corner-framed intro block (centred or left) used under interior heroes */
+.intro{padding-block:clamp(3.5rem,8vw,6rem);border-bottom:1px solid var(--hairline)}
+.intro .cmark{max-width:min(92vw,52rem);margin-inline:auto;padding:clamp(1.6rem,3vw,2.6rem) clamp(2rem,4vw,3.6rem)}
+.intro p{text-align:center;letter-spacing:.08em;line-height:2;font-size:clamp(.9rem,1vw,1.02rem);color:var(--ink)}
+.intro--left .cmark{margin-inline:0}
+.intro--left p{text-align:left}
+
+/* Testimonials (About) */
+.testi{background:var(--oxblood);color:var(--ivory)}
+.testi .section-head{text-align:center}
+.testi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(2rem,5vw,4.5rem) clamp(3rem,7vw,6rem)}
+.testi-item{text-align:center}
+.testi-item p{font-family:var(--font-aneto);text-transform:none;letter-spacing:.01em;line-height:1.55;
+  font-size:clamp(1rem,1.35vw,1.2rem);color:rgba(255,255,255,.9);max-width:42ch;margin-inline:auto}
+.testi-item cite{display:block;margin-top:1rem;font-family:var(--font-aneto);font-style:normal;
+  font-size:.9rem;letter-spacing:.02em;text-transform:none;color:rgba(211,210,210,.72)}
+.testi .hairline{border-color:var(--hairline-dark)}
+@media (max-width:760px){.testi-grid{grid-template-columns:1fr}}
+
+/* Three-image editorial strip (About / Services) */
+.imgstrip{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.5rem,1.2vw,1rem)}
+.imgstrip img{width:100%;height:clamp(240px,32vw,460px);object-fit:cover}
+.imgstrip--bw img{filter:grayscale(1)}
+@media (max-width:760px){.imgstrip{grid-template-columns:1fr 1fr}.imgstrip img:last-child{grid-column:1/-1}}
+
+/* --- Services: stacked list on burgundy --- */
+.svc-list{border-top:1px solid var(--hairline-dark)}
+.svc{padding-block:clamp(2rem,4vw,3.4rem);border-bottom:1px solid var(--hairline-dark)}
+.band--velvet .svc .service-kicker{color:rgba(211,210,210,.55)}
+.svc h3{font-weight:400;font-size:clamp(1.4rem,2.8vw,2.3rem);margin:.7rem 0 1rem}
+.svc p{max-width:74ch;line-height:1.95;letter-spacing:.04em}
+
+/* --- Intro multi-paragraph --- */
+.intro .prose{max-width:64ch;margin-inline:auto}
+.intro .prose p{text-align:center;letter-spacing:.06em;line-height:2}
+.intro .prose p+p{margin-top:1.3em}
+
+/* --- Jobs: file upload --- */
+.form-field input[type=file]{padding:.6rem 0;font-family:var(--font-utility);font-size:.85rem}
+.form-field input[type=file]::file-selector-button{font-family:var(--font-utility);font-size:.7rem;
+  letter-spacing:.18em;text-transform:uppercase;background:transparent;border:1px solid var(--hairline);
+  border-radius:999px;padding:.5rem 1.1rem;margin-right:1rem;cursor:pointer;color:inherit}
+.job-head{border-bottom:1px solid var(--hairline);padding-bottom:clamp(2rem,4vw,3rem);margin-bottom:clamp(2rem,4vw,3rem)}
+.job-head h2{font-size:clamp(1.3rem,2.4vw,1.9rem)}
+.job-head .job-meta{font-family:var(--font-utility);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-top:.8rem}
+
+/* --- Portfolio: archives band --- */
+.portfolio-grid .case-tag{color:var(--ink-soft)}
+.archives{background:var(--oxblood);color:var(--ivory)}
+.archives .section-head .label{color:rgba(211,210,210,.6)}
+.archives-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.6rem,1.4vw,1rem)}
+.archives-grid img{width:100%;aspect-ratio:4/5;object-fit:cover}
+@media (max-width:640px){.archives-grid{grid-template-columns:1fr 1fr}}
+
+/* --- Draping: full-bleed showcase image between sections --- */
+.drape-band{overflow:hidden}
+.drape-band img{width:100%;height:clamp(360px,60vh,720px);object-fit:cover}
+
+/* Ethos / process numbers stay light on burgundy bands */
+.band--velvet .ethos-item .ethos-num,.band--charcoal .ethos-item .ethos-num{color:rgba(211,210,210,.85)}
+
+/* Ethos numbers: prominent Aneto section-numbers */
+.ethos-item .ethos-num{display:block;font-family:var(--font-aneto);font-weight:400;font-size:clamp(1.5rem,2.2vw,2rem);line-height:1;margin-bottom:.7rem}
+
+/* Featured press logos (real image logos on the grey strip) */
+.featured-logos img.featured-logo{width:auto;max-width:min(36vw,360px);object-fit:contain;opacity:.9;mix-blend-mode:multiply}
+/* Per-logo balancing — the source files have different internal whitespace,
+   so uniform height made ivory-tribe/the-wed tiny and porter huge. */
+.featured-logos img:nth-child(1){height:clamp(6rem,11vw,10.5rem);filter:contrast(1.14)}  /* ivory tribe (monogram+word) — contrast hides its cream box */
+.featured-logos img:nth-child(2){height:clamp(4.4rem,8vw,7.5rem)}    /* the wed (stacked) */
+.featured-logos img:nth-child(3){height:clamp(2.8rem,5vw,4.8rem)}    /* porter (single wide word) */
+.drape-band video{width:100%;height:clamp(360px,60vh,720px);object-fit:cover;display:block}
+
+/* About testimonials — draping image behind the quotes (deck) */
+.testi{position:relative;isolation:isolate;overflow:hidden}
+.testi-bg{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;object-position:50% 45%;filter:brightness(.62)}
+.testi::before{content:"";position:absolute;inset:0;z-index:-1;background:rgba(20,15,13,.42)}
+
+/* ==========================================================================
+   SAID STUDIO — Carolyn detailed-changes pass (Aug 2026)
+   Blue kickers (#7087a0) reinstated ONLY where the deck uses them (services,
+   draping, portfolio — never the homepage). Taller interior heroes, square
+   intro, full-height drape film, working carousel, archives inset, 3-grey
+   enquire filter.
+   ========================================================================== */
+:root{--blue:#7087a0}
+
+/* --- Interior hero: match the homepage hero's height/visibility (deck heroes
+       are full-height and show much more of the image) --- */
+.ihero{min-height:100svh}
+.ihero-media img{object-position:50% 44%}
+
+/* --- Blue kickers, scoped so they can never touch the homepage --- */
+.band--velvet .svc .service-kicker{color:var(--blue)}    /* Weddings/Our Signature/For Brands/On Set */
+.svc-difference .label{color:var(--blue)}                /* THE SAID DIFFERENCE */
+.drape-carousel .label{color:var(--blue)}                /* What We Offer */
+.drape-process .label--red{color:var(--blue)}            /* Our Draping Process */
+.drape-process .process-step::before{color:var(--blue)}  /* 01–05 numbers */
+.archives .section-head .label{color:var(--blue)}        /* The Archives */
+
+/* --- Draping intro: square, justified corner-mark block (deck) --- */
+.intro--square .cmark{max-width:min(92vw,42rem);margin-inline:auto;
+  padding:clamp(2.2rem,4vw,3.4rem) clamp(2rem,4vw,3.4rem)}
+.intro--square p,.intro--square .prose p{text-align:justify;letter-spacing:.05em}
+
+/* --- Draping film band: tall / full-height (deck) --- */
+.drape-band--tall{height:100svh;min-height:560px}
+.drape-band--tall video,.drape-band--tall img{height:100%;width:100%;object-fit:cover;display:block}
+
+/* --- Draping carousel: single shared nav (was nested inside hidden slides →
+       arrows died after slide 1), big Aneto label, Garet body --- */
+.drape-carousel .dc-slide{grid-template-columns:.82fr 1.18fr}
+.dc-body p{font-family:var(--font-garet)}
+.dc-label{font-family:var(--font-aneto);font-weight:400;letter-spacing:.14em;
+  font-size:clamp(2.4rem,5vw,3.8rem);text-align:right;align-self:flex-end;margin-top:1.6rem}
+.dc-nav-shared{display:flex;align-items:center;justify-content:flex-end;gap:1.4rem;margin-top:1.6rem}
+.dc-nav-shared button{font-family:var(--font-aneto);font-size:1.6rem;line-height:1;color:var(--ivory);
+  width:46px;height:46px;border:1px solid var(--hairline-dark);border-radius:50%;
+  transition:background .3s,color .3s,border-color .3s}
+.dc-nav-shared button:hover{background:var(--ivory);color:var(--charcoal);border-color:var(--ivory)}
+.dc-nav-shared .dc-count{font-family:var(--font-garet);font-size:.72rem;letter-spacing:.24em}
+
+/* --- Portfolio archives: pull the grid in so more burgundy shows either side --- */
+.archives-grid{max-width:min(100%,900px);margin-inline:auto}
+
+/* --- Enquire: left image split into three progressively-greyer bands (deck) --- */
+.enquire-media img{width:min(48%,600px);object-position:50% 26%;filter:grayscale(1);opacity:1}
+.enquire-media::after{background:linear-gradient(to right,
+  rgba(211,210,210,.06) 0 16%,
+  rgba(211,210,210,.34) 16% 31%,
+  rgba(211,210,210,.62) 31% 46%,
+  rgba(211,210,210,1) 46% 100%)}
+@media (max-width:860px){
+  .enquire-media img{width:100%}
+  .enquire-media::after{background:linear-gradient(to bottom,
+    rgba(211,210,210,.15) 0 40%,rgba(211,210,210,.7) 70%,rgba(211,210,210,1) 100%)}
+}
+
+/* --- Darker top banner: scrim behind the nav so links read over bright hero
+       tops (Carolyn). Fades out; the solid charcoal takes over once scrolled. --- */
+.site-header--dark:not(.is-scrolled){
+  background:linear-gradient(to bottom,rgba(16,13,12,.62) 0%,rgba(16,13,12,.30) 55%,rgba(16,13,12,0) 100%);
+}
+
+/* Seamless background films are native <video> tags (autoplay muted loop). The
+   .mp4s are hosted free on GitHub (Pages or jsDelivr) — Neocities' free plan can't
+   host video — and the existing .video-block video / .drape-band video rules make
+   them object-fit:cover their container. Posters show until the film starts. */

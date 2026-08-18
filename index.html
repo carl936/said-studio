@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<!-- ============================================================================
+     SAID STUDIO — HOMEPAGE  (2026 build · part of the upload2026/ site)
+     Self-contained: css/styles.css · js/main.js · favicon.svg · assets/ (all photos
+     + videos). All 8 pages (incl. case studies) live in this one folder — upload the
+     whole folder to Neocities. Paths are RELATIVE; do NOT add a leading-slash "/…".
+
+     THIS REV follows Carolyn's markups as gospel:
+       • Two-font system: ANETO SKYLINE (high-contrast serif) for display headings,
+         GARET (geometric sans) for all body/UI — replacing Courier. Neither font is
+         licensed in-repo, so each falls back to a close system stack (Didot / Futura).
+         Drop the real .woff2s into a fonts/ folder + uncomment the @font-face below.
+       • The [ ] character-brackets are gone → L-shaped CORNER-MARK graphics (.cmark).
+       • NO blue accent anywhere on this page.
+       • Removed the [S]DS hero monogram; added the bottom-right hero corner mark.
+       • Video statement: one line, Aneto, much taller band. Acknowledgement centred.
+       • Fabric as Architecture: full-viewport band, image bleeds to the left edge,
+         shown in COLOUR (her ref shows red roses) — a deliberate exception to the
+         old "homepage entirely B&W" rule. Hero / Recent Events / Carolyn stay B&W.
+
+     PLACEHOLDERS: video poster + play button stand in for the real film;
+     FEATURED logos are styled text stand-ins (swap for real logo assets).
+     ========================================================================= -->
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAID STUDIO — Homepage (Canva reference)</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <!-- Playfair Display = free stand-in for Aneto Skyline (paid TypeTogether font).
+       Swap for the real Aneto @font-face once licensed — see the note in <style>. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+
+  <style>
+    /* === Two-font system (Carolyn's Canva) =====================================
+       Display  → ANETO SKYLINE (high-contrast serif)
+       Body/UI  → GARET (geometric sans) — replaces the old Courier typewriter
+       Neither is licensed in-repo, so each falls back to a close system stack.
+       To use the real fonts, drop the files in and uncomment:
+       @font-face{font-family:"Aneto Skyline";src:url("fonts/aneto-skyline.woff2") format("woff2");font-display:swap;}
+       @font-face{font-family:"Garet";src:url("fonts/garet.woff2") format("woff2");font-display:swap;} */
+    :root{
+      --font-aneto:"Aneto Skyline","Aneto","Playfair Display",Didot,"Bodoni 72","Times New Roman",Georgia,serif;
+      --font-garet:"Garet","Century Gothic","Futura","Avenir Next","Helvetica Neue",Arial,sans-serif;
+      /* Swap the Courier "typewriter" layer for Garet everywhere it's used */
+      --font-body:var(--font-garet);
+      --font-utility:var(--font-garet);
+    }
+
+    /* Display headings → Aneto serif (body/UI now Garet via the vars above) */
+    .aneto{font-family:var(--font-aneto);font-weight:400;text-transform:uppercase;line-height:1.12;letter-spacing:.08em}
+
+    /* --- Kill the [ ] character-brackets on this page (corner marks replace them) --- */
+    .section-head h2::before,.section-head h2::after,
+    .split-head-caps::before,.split-head-bold::after,
+    .cta-band .display-italic::before,.cta-band .display-italic::after,
+    .hero-title-caps::before,.hero-title-flourish::after{content:none !important}
+
+    /* --- Kill every blue accent on this page --- */
+    .site-header .wordmark .dot,.site-footer .wordmark .dot,
+    .site-header--dark:not(.is-scrolled) .wordmark .dot{color:var(--ivory)}
+    .footer-col a:hover{color:var(--ivory)}
+
+    /* --- Corner-mark frame (L-shapes, top-left + bottom-right) --- */
+    .cmark{--cmark:rgba(90,89,89,.55);position:relative}
+    .cmark::before,.cmark::after{content:"";position:absolute;width:18px;height:18px;pointer-events:none}
+    .cmark::before{top:0;left:0;border-left:1px solid var(--cmark);border-top:1px solid var(--cmark)}
+    .cmark::after{bottom:0;right:0;border-right:1px solid var(--cmark);border-bottom:1px solid var(--cmark)}
+    .cmark--lg::before,.cmark--lg::after{width:30px;height:30px}
+    .band--velvet .cmark,.fabric .cmark{--cmark:rgba(211,210,210,.55)}
+
+    /* === 1 · HERO === */
+    /* Both lines uniform size + wide tracking, no period (matches Carolyn's Canva) */
+    .hero-title.aneto{display:block;text-shadow:0 1px 40px rgba(24,18,16,.35)}
+    .ht1,.ht2{display:block;font-weight:400;font-size:clamp(2rem,5.8vw,4.6rem);letter-spacing:.16em;line-height:1.16}
+    .hero-actions{margin-top:clamp(1.8rem,3vw,2.6rem)}
+
+    /* === 2a · ACKNOWLEDGEMENT (centred, corner-framed, tall) === */
+    .ack{padding-block:clamp(2.4rem,4.5vw,3.6rem);border-bottom:1px solid var(--hairline)}
+    .ack-frame{--cmark:rgba(26,24,22,.75);max-width:min(92vw,46rem);margin-inline:auto;position:relative;
+      padding:clamp(2rem,3.5vw,3rem) clamp(2.5rem,5vw,4.5rem)}
+    .ack-frame::before,.ack-frame::after{width:32px;height:32px}
+    .ack p{text-align:center;font-size:clamp(.9rem,1vw,1.02rem);line-height:2;letter-spacing:.1em;color:var(--ink)}
+
+    /* === 2b · VIDEO STATEMENT (bigger band, one line, Aneto) === */
+    .video-block{
+      position:relative;isolation:isolate;overflow:hidden;
+      min-height:clamp(520px,92vh,960px);
+      display:grid;place-items:center;text-align:center;color:var(--ivory);
+    }
+    .video-block img,.video-block video{
+      position:absolute;inset:0;z-index:-2;
+      width:100%;height:100%;object-fit:cover;object-position:50% 40%;
+    }
+    .video-block::after{content:"";position:absolute;inset:0;z-index:-1;background:rgba(24,18,16,.44)}
+    .video-media{display:contents}
+    .video-inner{display:flex;flex-direction:column;align-items:center;gap:clamp(1.6rem,3.5vw,2.6rem);padding-inline:1rem}
+    .video-play{
+      width:clamp(68px,8vw,92px);aspect-ratio:1;border-radius:50%;
+      border:1px solid rgba(211,210,210,.85);display:grid;place-items:center;
+      transition:background .4s var(--ease-out),border-color .4s var(--ease-out);
+    }
+    .video-play::before{
+      content:"";width:0;height:0;margin-left:5px;
+      border-style:solid;border-width:12px 0 12px 19px;
+      border-color:transparent transparent transparent var(--ivory);
+    }
+    .video-media:hover .video-play{background:rgba(211,210,210,.16);border-color:var(--ivory)}
+    .video-line{
+      font-family:var(--font-aneto);font-weight:400;text-transform:uppercase;white-space:nowrap;
+      letter-spacing:.05em;line-height:1;font-size:clamp(.82rem,3.4vw,2.7rem);
+      text-shadow:0 1px 30px rgba(24,18,16,.5);
+    }
+    .video-line s{text-decoration-thickness:2px;text-decoration-color:rgba(211,210,210,.9);text-underline-offset:2px}
+
+    /* === 3a · FEATURED (press) === */
+    .featured{text-align:center;padding-top:var(--space-section)}
+    .featured .label{display:block;margin-bottom:clamp(1.5rem,3vw,2.4rem)}
+    .featured-logos{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:clamp(2.5rem,8vw,8rem)}
+    /* Placeholder logotypes — swap each for <img class="featured-logo" src="…" alt="…"> */
+    .featured-logo{font-family:Georgia,"Times New Roman",serif;text-transform:none;color:var(--ink-soft);opacity:.9;line-height:1;white-space:nowrap}
+    .fl-ivory{font-style:italic;font-size:clamp(1.3rem,2.4vw,1.9rem)}
+    .fl-wed{font-size:clamp(1.4rem,2.6vw,2rem);letter-spacing:.04em}
+    .fl-wed b{font-weight:700}
+    .fl-porter{font-weight:700;font-size:clamp(1.35rem,2.5vw,1.95rem);letter-spacing:.14em}
+
+    /* === 3b · RECENT EVENTS === */
+    .rec .section-head{margin-bottom:clamp(1.4rem,3vw,2.2rem)}
+    .rec-head{font-size:clamp(1.4rem,3vw,2.2rem);letter-spacing:.16em}
+    .case-grid--trio .case-meta h3{font-family:var(--font-aneto);font-weight:400;font-style:normal;letter-spacing:.06em;font-size:clamp(1.15rem,2vw,1.5rem)}
+    .case-grid--trio .case-tag{color:var(--ink-soft)}
+
+    /* === 4 · FABRIC AS ARCHITECTURE (full-viewport, image bleeds left, COLOUR) === */
+    .fabric{position:relative;min-height:min(96svh,900px);display:grid;grid-template-columns:1.02fr .98fr;align-items:stretch;overflow:hidden}
+    .fabric-media{position:relative;align-self:stretch;overflow:hidden}
+    .fabric-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+    /* deck p.1: moderate heading, clear space above it, small justified body,
+       all left-aligned within the burgundy panel */
+    .fabric-copy{display:flex;flex-direction:column;justify-content:center;text-align:left;padding:clamp(3rem,6vw,5.5rem) clamp(2rem,3vw,3rem) clamp(3rem,6vw,5.5rem) clamp(2.2rem,4.5vw,4.5rem)}
+    .fabric-head{font-size:clamp(1.9rem,3.6vw,3.7rem);letter-spacing:.14em;line-height:1.14;margin-bottom:clamp(1.6rem,2.6vw,2.4rem);text-align:left}
+    .fabric-body{max-width:46ch;padding:clamp(1.3rem,1.7vw,1.8rem)}
+    .fabric-body p{text-align:justify;line-height:1.95;letter-spacing:.06em;font-size:clamp(.92rem,1vw,1.1rem)}
+    @media (max-width:860px){
+      .fabric{grid-template-columns:1fr;min-height:0}
+      .fabric-media{aspect-ratio:4/5}
+      /* tighter tracking + padding on phones so the wide heading never clips */
+      .fabric-copy{padding:clamp(2rem,7vw,3.2rem) clamp(1.2rem,4vw,2rem)}
+      .fabric-head{letter-spacing:.06em;font-size:clamp(1.8rem,6.4vw,3rem)}
+      .fabric-body{max-width:none}
+    }
+
+    /* === 5 · MEET CAROLYN === */
+    .mc-head{font-size:clamp(1.45rem,2.3vw,1.95rem);letter-spacing:.12em;margin-bottom:.5rem}
+    .mc-kicker{display:block;margin:0;letter-spacing:.24em}
+    .split-media.mc-media{overflow:visible;max-height:580px}
+    .mc-media::before{top:-12px;left:-12px}
+    .mc-media::after{bottom:-12px;right:-12px}
+    .mc-media:hover img{transform:none}
+    .mc-bio{margin-top:1.8rem;max-width:50ch;padding:1.5rem 1.7rem}
+    .mc-bio p{text-align:justify;line-height:2;letter-spacing:.06em;font-size:clamp(.82rem,.85vw,.9rem)}
+
+    /* === 5 · CTA === */
+    .cta-band .display-italic{font-family:var(--font-aneto);font-weight:400;font-style:normal;letter-spacing:.08em}
+
+    @media (max-width:560px){
+      .featured-logos{gap:1.6rem}
+      .video-line{white-space:normal;line-height:1.35}
+    }
+  </style>
+</head>
+<body class="page-home">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Signature moment: satin curtains part on first visit (see js/main.js) -->
+  <div class="curtain" aria-hidden="true">
+    <div class="curtain-panel curtain-panel--left"></div>
+    <div class="curtain-panel curtain-panel--right"></div>
+    <div class="curtain-mark">Said Studio</div>
+  </div>
+
+  <header class="site-header site-header--dark">
+    <div class="container header-inner">
+      <a class="wordmark" href="index.html">Said Studio<span class="dot">.</span></a>
+      <nav class="primary-nav" aria-label="Primary">
+        <a class="nav-link" href="index.html" aria-current="page">Home</a>
+        <a class="nav-link" href="about.html">About</a>
+        <a class="nav-link" href="services.html">Services</a>
+        <a class="nav-link" href="draping.html">Draping</a>
+        <a class="nav-link" href="portfolio.html">Portfolio</a>
+        <a class="nav-link" href="jobs.html">Careers</a><a class="nav-link nav-enquire" href="enquire.html">Enquire</a>
+      </nav>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobile-menu">
+    <nav aria-label="Mobile">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="draping.html">Draping</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="enquire.html">Enquire</a>
+    </nav>
+    <p class="menu-foot">hello@saidstudio.com.au · Melbourne</p>
+  </div>
+
+  <main id="main">
+
+    <!-- 1 · HERO -->
+    <section class="hero">
+      <div class="hero-media">
+        <img src="assets/samantha-20260-bw.jpg" width="1666" height="2500" alt="Bride photographed from behind in a corseted gown against dark vertical draping, black and white" fetchpriority="high">
+      </div>
+      <div class="container hero-inner">
+        <h1 class="hero-title aneto" data-stage="2">
+          <span class="ht1">Events done</span>
+          <span class="ht2">Differently</span>
+        </h1>
+        <div class="hero-actions" data-stage="4">
+          <a class="btn btn--light" href="enquire.html"><span class="btn-dot"></span>Enquire Now</a>
+          <a class="btn btn--light" href="portfolio.html">View our work</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2a · ACKNOWLEDGEMENT OF COUNTRY (centred, corner-framed) -->
+    <section class="ack">
+      <div class="container">
+        <div class="ack-frame cmark">
+          <p>SAID STUDIO is proudly based in Melbourne / Naarm, on the lands of the Bunurong People of the Kulin Nation. We acknowledge the Traditional Custodians of Country and pay our respects to Elders past and present.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2b · VIDEO STATEMENT (placeholder film) -->
+    <!-- PLACEHOLDER: poster + play button stand in for the real film. Replace with
+         <video class="video-block" poster="…" controls playsinline preload="metadata">
+           <source src="…studio-film.mp4" type="video/mp4"></video> when ready. -->
+    <section class="video-block" aria-label="Studio film">
+      <!-- Seamless background film. Neocities' free plan can't host video, so host the
+           COMPRESSED .mp4 free on GitHub and point the src at it:
+             • jsDelivr : https://cdn.jsdelivr.net/gh/USER/REPO@main/homepage.mp4
+             • or Pages : https://USER.github.io/REPO/homepage.mp4
+           Replace the src below with yours. Poster shows until the film starts. -->
+      <video autoplay muted loop playsinline preload="auto"
+             poster="assets/video-homepage-poster.jpg" aria-hidden="true">
+        <source src="assets/homepage.mp4" type="video/mp4">
+      </video>
+      <div class="video-inner">
+        <p class="video-line">We don't decorate events, we shape them.</p>
+      </div>
+    </section>
+
+    <!-- 3a · FEATURED (press) -->
+    <section class="featured container">
+      <span class="label">Featured</span>
+      <div class="featured-logos">
+        <img class="featured-logo" src="assets/logo-ivory-tribe.webp" alt="Ivory Tribe" loading="lazy">
+        <img class="featured-logo" src="assets/logo-the-wed.webp" alt="The Wed" loading="lazy">
+        <img class="featured-logo" src="assets/logo-porter.png" alt="Porter" loading="lazy">
+      </div>
+    </section>
+
+    <!-- 3b · RECENT EVENTS -->
+    <section class="section rec">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2 class="rec-head aneto">Recent Events</h2>
+        </div>
+        <div class="case-grid case-grid--trio">
+          <a class="case-card reveal" href="case-study-template.html?project=samantha-thomas">
+            <figure><img src="assets/samantha-20260-bw-2.jpg" width="2048" height="1365" alt="Samantha and Thomas at The Trust, couple between candlelit banquet tables, black and white" loading="lazy"></figure>
+            <div class="case-meta"><h3>Samantha &amp; Thomas</h3></div>
+            <span class="case-tag">Real Wedding</span>
+          </a>
+          <a class="case-card reveal" data-delay="1" href="case-study-template.html?project=kiara-sam">
+            <figure><img src="assets/kiara-20260-bw.jpg" width="1365" height="2048" alt="Kiara and Sam at Sunnyside with the draped backdrop, black and white" loading="lazy"></figure>
+            <div class="case-meta"><h3>Kiara &amp; Sam</h3></div>
+            <span class="case-tag">Real Wedding</span>
+          </a>
+          <a class="case-card reveal" data-delay="2" href="case-study-template.html?project=mont-du-soleil">
+            <figure><img src="assets/mont-3657-bw.jpg" width="1666" height="2500" alt="Mont Du Soleil bridal editorial, black and white" loading="lazy"></figure>
+            <div class="case-meta"><h3>Mont Du Soleil</h3></div>
+            <span class="case-tag">Editorial</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 · FABRIC AS ARCHITECTURE (full-viewport burgundy band, image bleeds left) -->
+    <section class="fabric band--velvet">
+      <div class="fabric-media reveal">
+        <img src="assets/home-fabric.jpg" width="1666" height="2500" alt="Hand-gathered ivory satin draping in sculptural folds, dressed with deep-red blooms">
+      </div>
+      <div class="fabric-copy reveal" data-delay="1">
+        <h2 class="fabric-head aneto">Fabric as<br>Architecture</h2>
+        <div class="fabric-body cmark">
+          <p>We use fabric to reshape and transform spaces. Each installation is designed in response to the venue, from softening architecture and defining spaces to creating intimacy or a distinctive focal point.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 · MEET CAROLYN -->
+    <section class="section mc">
+      <div class="container split split--flip split--portrait">
+        <div class="split-media mc-media cmark cmark--lg reveal">
+          <img src="assets/home-carolyn.jpg" width="1666" height="2500" alt="Carolyn Hutchins styling a candlelit table, black and white" loading="lazy">
+        </div>
+        <div class="split-copy reveal" data-delay="1">
+          <h2 class="mc-head aneto">Meet Carolyn</h2>
+          <span class="label mc-kicker">Founder &amp; Creative Director</span>
+          <div class="mc-bio cmark">
+            <p>After 14 years in global marketing, Carolyn turned a long-time love of hosting, design and making an occasion feel special into SAID STUDIO. At the heart of it is a simple idea: creating celebrations that feel like an escape from the everyday.</p>
+          </div>
+          <a class="text-link" href="about.html">Her story</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 · CTA -->
+    <section class="section cta-band">
+      <div class="container reveal">
+        <p class="display-italic">Let’s create something unexpected.</p>
+        <p>We intentionally take on a limited number of events each year, so every celebration receives the care it deserves. Tell us about yours.</p>
+        <a class="btn btn--solid" href="enquire.html"><span class="btn-dot"></span>Enquire Now</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- 5 · FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a class="wordmark" href="index.html">Said Studio<span class="dot">.</span></a>
+        <p>Boutique event design &amp; styling. Melbourne, Australia.</p>
+      </div>
+      <div class="footer-col">
+        <span class="label">Studio</span>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="draping.html">Draping</a>
+      </div>
+      <div class="footer-col">
+        <span class="label">Work</span>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="enquire.html">Enquire</a>
+      </div>
+      <div class="footer-col">
+        <span class="label">Contact</span>
+        <a href="mailto:hello@saidstudio.com.au">Email us</a>
+        <a href="https://www.instagram.com/saidstudio.events/" rel="noopener" target="_blank">Instagram</a>
+        <a href="https://www.tiktok.com/@saidstudio.events" rel="noopener" target="_blank">TikTok</a>
+        <a href="https://au.pinterest.com/SAIDSTUDIOEVENTS/" rel="noopener" target="_blank">Pinterest</a>
+      </div>
+    </div>
+    <div class="container footer-base">
+      <span>© 2026 Said Studio</span>
+      <span>Events done differently</span>
+    </div>
+  </footer>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>
