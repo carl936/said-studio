@@ -237,16 +237,10 @@
       </div>
     </section>
 
-    <!-- 2b · VIDEO STATEMENT (placeholder film) -->
-    <!-- PLACEHOLDER: poster + play button stand in for the real film. Replace with
-         <video class="video-block" poster="…" controls playsinline preload="metadata">
-           <source src="…studio-film.mp4" type="video/mp4"></video> when ready. -->
+    <!-- 2b · VIDEO STATEMENT -->
+    <!-- Seamless muted background film (assets/homepage.mp4, served from this repo on
+         GitHub Pages). Poster shows until it loads; autoplay loops, no controls. -->
     <section class="video-block" aria-label="Studio film">
-      <!-- Seamless background film. Neocities' free plan can't host video, so host the
-           COMPRESSED .mp4 free on GitHub and point the src at it:
-             • jsDelivr : https://cdn.jsdelivr.net/gh/USER/REPO@main/homepage.mp4
-             • or Pages : https://USER.github.io/REPO/homepage.mp4
-           Replace the src below with yours. Poster shows until the film starts. -->
       <video autoplay muted loop playsinline preload="auto"
              poster="assets/video-homepage-poster.jpg" aria-hidden="true">
         <source src="assets/homepage.mp4" type="video/mp4">

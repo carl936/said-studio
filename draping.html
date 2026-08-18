@@ -45,15 +45,10 @@
       </div></div>
     </section>
 
-    <!-- SHOWCASE IMAGE -->
-    <!-- Draping showcase = your DRAPING PAGE.MP4 (add the compressed file at assets/video-draping.mp4).
-         Poster is the exact frame from the deck; falls back to the poster if the mp4 isn't there yet. -->
+    <!-- SHOWCASE FILM (deck p.4: tall, fills the screen) -->
+    <!-- Seamless muted background film (assets/draping.mp4, served from this repo on
+         GitHub Pages). Poster shows until it loads; autoplay loops, no controls. -->
     <section class="drape-band drape-band--tall" aria-label="Draping film">
-      <!-- Seamless background film (deck p.4: tall, fills the screen). Host the
-           COMPRESSED .mp4 free on GitHub and point the src at it:
-             • jsDelivr : https://cdn.jsdelivr.net/gh/USER/REPO@main/draping.mp4
-             • or Pages : https://USER.github.io/REPO/draping.mp4
-           Replace the src below with yours. Poster shows until the film starts. -->
       <video autoplay muted loop playsinline preload="auto"
              poster="assets/video-draping-poster.jpg" aria-hidden="true">
         <source src="assets/draping.mp4" type="video/mp4">
