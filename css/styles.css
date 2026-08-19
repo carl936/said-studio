@@ -1210,17 +1210,19 @@ h1,h2,h3{letter-spacing:.04em}
    host video — and the existing .video-block video / .drape-band video rules make
    them object-fit:cover their container. Posters show until the film starts. */
 
+/* Paint the page canvas the footer colour (all viewports) so force-scrolling
+   past the bottom — or top — never reveals the light body background. The body
+   keeps its own light background for the content; this only shows in the
+   overscroll/rubber-band area, which now matches the footer. */
+html{background:var(--oxblood-deep)}
+
 /* ==========================================================================
    Mobile fixes (Carolyn review) — scoped to phones (max-width:860px).
-   Desktop is intentionally untouched.
    ========================================================================== */
 @media (max-width:860px){
   /* 1 · Persistent mobile header — keep it visible while scrolling (the
          hide-on-scroll-down still applies on desktop). */
   .site-header.is-hidden{transform:none}
-  /* 3 · Remove the light strip under the footer on mobile overscroll: paint the
-         page canvas the footer colour instead of the light body background. */
-  html{background:var(--oxblood-deep)}
   /* 6 · Services "The Said Difference": clean single column on mobile — no blank
          fourth grid slot. */
   .ethos-grid{grid-template-columns:1fr}
