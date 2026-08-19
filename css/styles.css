@@ -1225,3 +1225,10 @@ h1,h2,h3{letter-spacing:.04em}
          fourth grid slot. */
   .ethos-grid{grid-template-columns:1fr}
 }
+
+/* Mobile menu open: hide the persistent header logo so it can't float over the
+   menu items while scrolling. The Close control (menu-toggle) stays above the
+   menu so it's still reachable. Restores automatically when the menu closes. */
+@media (max-width:860px){
+  body.menu-open .site-header .wordmark{visibility:hidden}
+}

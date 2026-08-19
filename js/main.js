@@ -68,6 +68,7 @@
       toggle.setAttribute("aria-expanded", open ? "true" : "false");
       toggle.textContent = open ? "Close" : "Menu";
       document.body.style.overflow = open ? "hidden" : "";
+      document.body.classList.toggle("menu-open", open);
     });
     mobileMenu.querySelectorAll("a").forEach(function (a) {
       a.addEventListener("click", function () {
@@ -75,6 +76,7 @@
         toggle.setAttribute("aria-expanded", "false");
         toggle.textContent = "Menu";
         document.body.style.overflow = "";
+        document.body.classList.remove("menu-open");
       });
     });
   }
