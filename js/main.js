@@ -40,6 +40,9 @@
   var header = document.querySelector(".site-header");
   var lastY = 0;
   function onScroll() {
+    // Don't churn the header state while the mobile menu is open (prevents the
+    // logo glitch when scrolling with the menu open).
+    if (document.querySelector(".mobile-menu.is-open")) return;
     var y = window.scrollY;
     if (header) {
       header.classList.toggle("is-scrolled", y > 40);
@@ -75,6 +78,18 @@
       });
     });
   }
+
+  /* ------------------------------------------------------------------
+     3b. BACKGROUND FILM AUTOPLAY
+     iOS won't honour the `muted` attribute for autoplay reliably (shows a
+     play button); set muted in JS and nudge play() so the films autoplay
+     inline on mobile. No effect on desktop (already playing).
+  ------------------------------------------------------------------ */
+  document.querySelectorAll("video[autoplay]").forEach(function (v) {
+    v.muted = true;
+    var pr = v.play();
+    if (pr && typeof pr.catch === "function") pr.catch(function () {});
+  });
 
   /* ------------------------------------------------------------------
      4. SCROLL REVEALS

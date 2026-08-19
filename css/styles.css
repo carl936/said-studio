@@ -1195,9 +1195,8 @@ h1,h2,h3{letter-spacing:.04em}
   rgba(211,210,210,.62) 31% 46%,
   rgba(211,210,210,1) 46% 100%)}
 @media (max-width:860px){
-  .enquire-media img{width:100%}
-  .enquire-media::after{background:linear-gradient(to bottom,
-    rgba(211,210,210,.15) 0 40%,rgba(211,210,210,.7) 70%,rgba(211,210,210,1) 100%)}
+  /* Carolyn: no photo behind the enquiry form on mobile — solid base only */
+  .enquire-media{display:none}
 }
 
 /* --- Darker top banner: scrim behind the nav so links read over bright hero
@@ -1210,3 +1209,19 @@ h1,h2,h3{letter-spacing:.04em}
    .mp4s are hosted free on GitHub (Pages or jsDelivr) — Neocities' free plan can't
    host video — and the existing .video-block video / .drape-band video rules make
    them object-fit:cover their container. Posters show until the film starts. */
+
+/* ==========================================================================
+   Mobile fixes (Carolyn review) — scoped to phones (max-width:860px).
+   Desktop is intentionally untouched.
+   ========================================================================== */
+@media (max-width:860px){
+  /* 1 · Persistent mobile header — keep it visible while scrolling (the
+         hide-on-scroll-down still applies on desktop). */
+  .site-header.is-hidden{transform:none}
+  /* 3 · Remove the light strip under the footer on mobile overscroll: paint the
+         page canvas the footer colour instead of the light body background. */
+  html{background:var(--oxblood-deep)}
+  /* 6 · Services "The Said Difference": clean single column on mobile — no blank
+         fourth grid slot. */
+  .ethos-grid{grid-template-columns:1fr}
+}
