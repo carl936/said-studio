@@ -781,26 +781,28 @@ h3{font-size:var(--size-h3)}
 }
 
 /* ---------- Enquire ---------- */
-/* Canva: image on the left, fading out to the right, behind the intro */
-.enquire-hero{position:relative;isolation:isolate;overflow:hidden}
-.enquire-media{position:absolute;inset:0;z-index:-1;overflow:hidden}
-.enquire-media img{width:min(60%,640px);height:100%;object-fit:cover;object-position:50% 28%;opacity:.4}
-.enquire-media::after{content:"";position:absolute;inset:0;background:linear-gradient(to right,rgba(211,210,210,.25),rgba(211,210,210,1) 62%)}
-@media (max-width:860px){.enquire-media img{width:100%}}
-.enquire-layout{
-  display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(2rem,5vw,5rem);
+/* Deck p.6: full-bleed two-column split — image column (left, ~42%) with the
+   3-grey bands + overlaid intro, and the form on the right (~58%). */
+.enquire-hero{display:grid;grid-template-columns:minmax(0,0.82fr) minmax(0,1.18fr);align-items:stretch;overflow:hidden}
+.enquire-aside{position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:flex-start;
+  padding:clamp(6.5rem,11vw,10rem) clamp(1.8rem,3.5vw,3.6rem) clamp(3rem,6vw,5rem)}
+.enquire-photo{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;object-position:50% 26%;filter:grayscale(1)}
+/* three progressively-greyer vertical bands over the image (deck) */
+.enquire-aside::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(to right,
+  rgba(211,210,210,.30) 0 33.33%,rgba(211,210,210,.52) 33.33% 66.66%,rgba(211,210,210,.74) 66.66% 100%)}
+.enquire-intro{max-width:34ch;color:var(--ink)}
+.enquire-intro .cmark{padding:1.6rem 1.9rem}
+.enquire-intro .lede{margin:0}
+.enquire-intro .enquire-email{margin-top:2.4rem}
+.enquire-form-wrap{padding:clamp(6.5rem,11vw,10rem) clamp(2rem,5vw,5.5rem) clamp(3rem,6vw,5rem)}
+.enquire-form-wrap form,.enquire-form-wrap .form-success{max-width:52rem}
+@media (max-width:860px){
+  /* stack; no photo on mobile — solid base only (Carolyn) */
+  .enquire-hero{grid-template-columns:1fr}
+  .enquire-photo,.enquire-aside::after{display:none}
+  .enquire-aside{padding:clamp(5.5rem,17vw,7rem) var(--space-gutter) 0}
+  .enquire-form-wrap{padding:clamp(1.5rem,6vw,2.5rem) var(--space-gutter) clamp(3rem,9vw,4rem)}
 }
-.enquire-intro{grid-column:1 / span 5}
-.enquire-intro h1{font-size:clamp(2.4rem,5vw,3.8rem)}
-.enquire-intro h1 em{font-style:normal;font-weight:700;color:var(--accent)}
-.enquire-intro .lede{margin-top:1.8rem}
-.enquire-points{margin-top:2.6rem;display:flex;flex-direction:column;gap:1.2rem}
-.enquire-points li{display:flex;gap:1rem;align-items:baseline}
-.enquire-points li::before{
-  content:"";flex:none;width:6px;height:6px;border-radius:50%;
-  background:var(--accent);transform:translateY(-2px);
-}
-.enquire-form-wrap{grid-column:7 / span 6}
 
 .form-field{position:relative;margin-bottom:2.4rem}
 /* Labels: quiet Arial Nova utility caps (~12px), never display/heading scale.
@@ -1187,17 +1189,7 @@ h1,h2,h3{letter-spacing:.04em}
 /* --- Portfolio archives: pull the grid in so more burgundy shows either side --- */
 .archives-grid{max-width:min(100%,900px);margin-inline:auto}
 
-/* --- Enquire: left image split into three progressively-greyer bands (deck) --- */
-.enquire-media img{width:min(48%,600px);object-position:50% 26%;filter:grayscale(1);opacity:1}
-.enquire-media::after{background:linear-gradient(to right,
-  rgba(211,210,210,.06) 0 16%,
-  rgba(211,210,210,.34) 16% 31%,
-  rgba(211,210,210,.62) 31% 46%,
-  rgba(211,210,210,1) 46% 100%)}
-@media (max-width:860px){
-  /* Carolyn: no photo behind the enquiry form on mobile — solid base only */
-  .enquire-media{display:none}
-}
+/* (Enquire layout now handled by the two-column .enquire-hero block above.) */
 
 /* --- Darker top banner: scrim behind the nav so links read over bright hero
        tops (Carolyn). Fades out; the solid charcoal takes over once scrolled. --- */
