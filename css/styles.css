@@ -1006,11 +1006,15 @@ h3{font-size:var(--size-h3)}
    Fonts fall back to Playfair Display / Century-Gothic until the licensed
    .woff2 files are dropped into /fonts and the @font-face below is enabled.
    ========================================================================== */
-/* @font-face{font-family:"Aneto Skyline";src:url("../fonts/aneto-skyline.woff2") format("woff2");font-display:swap}
-   @font-face{font-family:"Garet";src:url("../fonts/garet.woff2") format("woff2");font-display:swap} */
+/* Drop the licensed/free files into /fonts (any of .woff2/.otf/.ttf) — these light up
+   automatically. Filenames expected: garet.* (Book weight) and aneto-skyline.*
+   Until then, headings fall back to Didot and body to Avenir Next (closest stand-ins). */
+@font-face{font-family:"Aneto Skyline";src:url("../fonts/aneto-skyline.woff2") format("woff2"),url("../fonts/aneto-skyline.otf") format("opentype"),url("../fonts/aneto-skyline.ttf") format("truetype");font-weight:400 700;font-display:swap}
+@font-face{font-family:"Garet";src:url("../fonts/garet-book.woff2") format("woff2"),url("../fonts/garet-book.woff") format("woff");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Garet";src:url("../fonts/garet-heavy.woff2") format("woff2"),url("../fonts/garet-heavy.woff") format("woff");font-weight:700;font-style:normal;font-display:swap}
 :root{
   --font-aneto:"Aneto Skyline","Aneto","Playfair Display",Didot,"Bodoni 72","Times New Roman",Georgia,serif;
-  --font-garet:"Garet","Century Gothic","Futura","Avenir Next","Helvetica Neue",Arial,sans-serif;
+  --font-garet:"Garet","Avenir Next","Century Gothic","Futura","Helvetica Neue",Arial,sans-serif;
   --font-display:var(--font-aneto);   /* all headings → Aneto */
   --font-body:var(--font-garet);      /* body → Garet */
   --font-utility:var(--font-garet);   /* nav / labels / buttons → Garet */
